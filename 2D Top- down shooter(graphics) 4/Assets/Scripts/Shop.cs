@@ -22,32 +22,34 @@ public class Shop : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DeleteShopData(); // Удалить все сохраненные данные магазина
     }
 
     private void Start()
     {
+        InitializeShop();
+    }
+
+    private void Update()
+    {
+        HandleShopPanelToggle();
+    }
+
+    void InitializeShop()
+    {
         for (int i = 0; i < buyButtons.Length; i++)
         {
-            if (!PlayerPrefs.HasKey("Position" + i))
+            int position = PlayerPrefs.GetInt("Position" + i, 0);
+            if (position == 1)
             {
-                PlayerPrefs.SetInt("Position" + i, 0);
-            }
-            else
-            {
-                if (PlayerPrefs.GetInt("Position" + i) == 1)
-                {
-                    buyButtons[i].interactable = false;
-                    boughtTexts[i].text = "Купленно";
-
-                    if (i == 2) buySeconPosition.Invoke();
-                }
+                MarkAsBought(i);
             }
         }
 
         Check();
     }
 
-    private void Update()
+    void HandleShopPanelToggle()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -65,39 +67,53 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < buyButtons.Length; i++)
         {
-            if (Player.instance.currentMoney < prices[i])
+            if (PlayerPrefs.GetInt("Position" + i) == 1)
             {
-                buyButtons[i].interactable = false;
-                boughtTexts[i].text = "Мало монет";
+                SetButtonState(i, false, "Купленно");
+            }
+            else if (Player.instance.currentMoney < prices[i])
+            {
+                SetButtonState(i, false, "Мало монет");
             }
             else
             {
-                buyButtons[i].interactable = true;
-                boughtTexts[i].text = "Купить";
-            }
-
-            if (PlayerPrefs.GetInt("Position" + i) == 1)
-            {
-                buyButtons[i].interactable = false;
-                boughtTexts[i].text = "Купленно";
+                SetButtonState(i, true, "Купить");
             }
         }
     }
 
+    void SetButtonState(int index, bool interactable, string text)
+    {
+        buyButtons[index].interactable = interactable;
+        boughtTexts[index].text = text;
+    }
+
     public void Buy(int index)
+    {
+        if (Player.instance.currentMoney >= prices[index])
+        {
+            MarkAsBought(index);
+            Player.instance.AddMoney(-prices[index]);
+            Check();
+        }
+    }
+
+    void MarkAsBought(int index)
     {
         buyButtons[index].interactable = false;
         boughtTexts[index].text = "Купленно";
-
-        SoundManager.instance.PlayerSound(succesBuyClip);
-
         PlayerPrefs.SetInt("Position" + index, 1);
+        PlayerPrefs.Save(); // Сохранить изменения
 
-        if (index == 2) buySeconPosition.Invoke();
+        if (index == 2 && buySeconPosition != null) buySeconPosition.Invoke();
+    }
 
-        Player.instance.AddMoney(-prices[index]);
-
-        Check();
+    void DeleteShopData()
+    {
+        for (int i = 0; i < buyButtons.Length; i++)
+        {
+            PlayerPrefs.DeleteKey("Position" + i);
+        }
     }
 
     [ContextMenu("Delete Player Prefs")]

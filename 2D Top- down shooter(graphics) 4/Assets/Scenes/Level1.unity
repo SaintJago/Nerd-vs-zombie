@@ -4355,7 +4355,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -48.599976, y: -23}
-  m_SizeDelta: {x: 511.55, y: 155.27}
+  m_SizeDelta: {x: 520, y: 155.27}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &325572186
 MonoBehaviour:
@@ -4408,7 +4408,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -11066,7 +11066,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -48.599976, y: -22}
-  m_SizeDelta: {x: 511.55, y: 155.27}
+  m_SizeDelta: {x: 520, y: 155.27}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &727878502
 MonoBehaviour:
@@ -21843,7 +21843,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -48.599976, y: -21}
-  m_SizeDelta: {x: 511.55, y: 155.27}
+  m_SizeDelta: {x: 520, y: 155.27}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &1301073387
 MonoBehaviour:
@@ -21896,7 +21896,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -40221,7 +40221,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -48.599976, y: -22}
-  m_SizeDelta: {x: 511.55, y: 155.27}
+  m_SizeDelta: {x: 520, y: 155.27}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2011690754
 MonoBehaviour:
@@ -40274,7 +40274,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
