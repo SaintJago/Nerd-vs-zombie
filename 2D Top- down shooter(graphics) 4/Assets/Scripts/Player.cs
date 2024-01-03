@@ -157,7 +157,7 @@ public class Player : MonoBehaviour
     void Move()
     {
         moveInput = new Vector2(Input.GetAxisRaw("Horizontal"),
-             Input.GetAxisRaw("Vertical"));
+            Input.GetAxisRaw("Vertical"));
 
         if(moveInput != Vector2.zero)
         {
