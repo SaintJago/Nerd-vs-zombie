@@ -26,28 +26,29 @@ public class Shop : MonoBehaviour
 
     private void Start()
     {
+        InitializeShop();
+    }
+
+    private void Update()
+    {
+        HandleShopPanelToggle();
+    }
+
+    void InitializeShop()
+    {
         for (int i = 0; i < buyButtons.Length; i++)
         {
-            if (!PlayerPrefs.HasKey("Position" + i))
+            int position = PlayerPrefs.GetInt("Position" + i, 0);
+            if (position == 1)
             {
-                PlayerPrefs.SetInt("Position" + i, 0);
-            }
-            else
-            {
-                if (PlayerPrefs.GetInt("Position" + i) == 1)
-                {
-                    buyButtons[i].interactable = false;
-                    boughtTexts[i].text = "Купленно";
-
-                    if (i == 2) buySeconPosition.Invoke();
-                }
+                MarkAsBought(i);
             }
         }
 
         Check();
     }
 
-    private void Update()
+    void HandleShopPanelToggle()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -67,37 +68,40 @@ public class Shop : MonoBehaviour
         {
             if (Player.instance.currentMoney < prices[i])
             {
-                buyButtons[i].interactable = false;
-                boughtTexts[i].text = "Мало монет";
+                SetButtonState(i, false, "Мало монет");
             }
             else
             {
-                buyButtons[i].interactable = true;
-                boughtTexts[i].text = "Купить";
+                SetButtonState(i, true, "Купить");
             }
 
             if (PlayerPrefs.GetInt("Position" + i) == 1)
             {
-                buyButtons[i].interactable = false;
-                boughtTexts[i].text = "Купленно";
+                SetButtonState(i, false, "Купленно");
             }
         }
     }
 
+    void SetButtonState(int index, bool interactable, string text)
+    {
+        buyButtons[index].interactable = interactable;
+        boughtTexts[index].text = text;
+    }
+
     public void Buy(int index)
+    {
+        MarkAsBought(index);
+        Player.instance.AddMoney(-prices[index]);
+        Check();
+    }
+
+    void MarkAsBought(int index)
     {
         buyButtons[index].interactable = false;
         boughtTexts[index].text = "Купленно";
-
-        SoundManager.instance.PlayerSound(succesBuyClip);
-
         PlayerPrefs.SetInt("Position" + index, 1);
 
-        if (index == 2) buySeconPosition.Invoke();
-
-        Player.instance.AddMoney(-prices[index]);
-
-        Check();
+        if (index == 2 && buySeconPosition != null) buySeconPosition.Invoke();
     }
 
     [ContextMenu("Delete Player Prefs")]
