@@ -22,6 +22,7 @@ public class Shop : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        DeleteShopData(); // Удалить все сохраненные данные магазина
     }
 
     private void Start()
@@ -66,18 +67,17 @@ public class Shop : MonoBehaviour
     {
         for (int i = 0; i < buyButtons.Length; i++)
         {
-            if (Player.instance.currentMoney < prices[i])
+            if (PlayerPrefs.GetInt("Position" + i) == 1)
+            {
+                SetButtonState(i, false, "Купленно");
+            }
+            else if (Player.instance.currentMoney < prices[i])
             {
                 SetButtonState(i, false, "Мало монет");
             }
             else
             {
                 SetButtonState(i, true, "Купить");
-            }
-
-            if (PlayerPrefs.GetInt("Position" + i) == 1)
-            {
-                SetButtonState(i, false, "Купленно");
             }
         }
     }
@@ -90,9 +90,12 @@ public class Shop : MonoBehaviour
 
     public void Buy(int index)
     {
-        MarkAsBought(index);
-        Player.instance.AddMoney(-prices[index]);
-        Check();
+        if (Player.instance.currentMoney >= prices[index])
+        {
+            MarkAsBought(index);
+            Player.instance.AddMoney(-prices[index]);
+            Check();
+        }
     }
 
     void MarkAsBought(int index)
@@ -100,8 +103,17 @@ public class Shop : MonoBehaviour
         buyButtons[index].interactable = false;
         boughtTexts[index].text = "Купленно";
         PlayerPrefs.SetInt("Position" + index, 1);
+        PlayerPrefs.Save(); // Сохранить изменения
 
         if (index == 2 && buySeconPosition != null) buySeconPosition.Invoke();
+    }
+
+    void DeleteShopData()
+    {
+        for (int i = 0; i < buyButtons.Length; i++)
+        {
+            PlayerPrefs.DeleteKey("Position" + i);
+        }
     }
 
     [ContextMenu("Delete Player Prefs")]
