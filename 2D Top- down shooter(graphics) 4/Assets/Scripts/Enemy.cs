@@ -11,7 +11,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int health;
     [SerializeField] float stopDistance, distanceToRunOut, speed;
 
-    protected Player player;
+    protected Player player; // поле player теперь защищено
     bool isDeath = false;
 
     bool canAttack = false;
@@ -94,14 +94,14 @@ public class Enemy : MonoBehaviour
         }
     }
 
-     IEnumerator SetRandomPos()
-     {
-         addRandPosToGo = new Vector3(Random.Range(-stopDistance + 0.1f, stopDistance - 0.1f), Random.Range(-stopDistance + 0.1f, stopDistance - 0.1f));
+    IEnumerator SetRandomPos()
+    {
+        addRandPosToGo = new Vector3(Random.Range(-stopDistance + 0.1f, stopDistance - 0.1f), Random.Range(-stopDistance + 0.1f, stopDistance - 0.1f));
 
-         yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);
 
-         StartCoroutine(nameof(SetRandomPos));
-     }
+        StartCoroutine(nameof(SetRandomPos));
+    }
 
     void Scale(Vector3 pos)
     {

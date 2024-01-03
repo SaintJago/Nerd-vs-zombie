@@ -7,7 +7,7 @@ public class RangedEnemy : Enemy
     float timer;
     [SerializeField] float timeBtwAttack;
     [SerializeField] Transform shotPos;
-    Transform player;
+    new protected Transform player; // скрывает поле player в родительском классе
 
     [SerializeField] GameObject bullet;
 
