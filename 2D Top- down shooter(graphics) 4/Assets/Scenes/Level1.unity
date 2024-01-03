@@ -2505,9 +2505,9 @@ MonoBehaviour:
   - {fileID: 2011690754}
   boughtTexts:
   - {fileID: 797915265}
-  - {fileID: 1125850015}
-  - {fileID: 1474626196}
-  - {fileID: 1408236207}
+  - {fileID: 252280185}
+  - {fileID: 1480133371}
+  - {fileID: 1412264357}
   prices: 6400000096000000fa0000005e010000
   shopPanel: {fileID: 1146234494}
   popSound: {fileID: 8300000, guid: f0a445804593df94e81935f971d1c8ab, type: 3}
