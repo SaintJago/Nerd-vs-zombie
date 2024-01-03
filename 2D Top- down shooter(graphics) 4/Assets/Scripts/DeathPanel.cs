@@ -21,8 +21,8 @@ public class DeathPanel : MonoBehaviour
 
     public void Restart()
     {
+        Time.timeScale = 1; // возобновляет игру
         SoundManager.instance.PlayerSound(popSound);
-
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 

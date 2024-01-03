@@ -55,6 +55,9 @@ TagManager:
   - name: FistLayer
     uniqueID: 641055555
     locked: 0
+  - name: Bullet
+    uniqueID: 2164515561
+    locked: 0
   - name: UI
     uniqueID: 3347843037
     locked: 0

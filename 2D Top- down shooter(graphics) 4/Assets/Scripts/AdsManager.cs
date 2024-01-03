@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 
-
 public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
-
     [SerializeField] GameObject rewardedAdsButton, deathPanel;
     [SerializeField] float timeBtwAd;
     float timerBtwAd;
@@ -32,7 +30,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void ShowAd()
     {
         Advertisement.Show("Rewarded_Android", this);
-
         SoundManager.instance.PlayerSound(popSound);
     }
 
@@ -61,6 +58,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         if(placementId == "Rewarded_Android")
         {
+            Time.timeScale = 1; // возобновляет игру
             rewardedAdsButton.SetActive(false);
             deathPanel.SetActive(false);
             Player.instance.gameObject.SetActive(true);

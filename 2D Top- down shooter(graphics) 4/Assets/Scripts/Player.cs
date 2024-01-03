@@ -251,11 +251,9 @@ public class Player : MonoBehaviour
         UpdateHealthUI();
 
         if (health <= 0 && deathPanel.activeInHierarchy == false) {
-
+            Time.timeScale = 0; // останавливает игру
             SoundManager.instance.PlayerSound(deathClip);
-
             deathPanel.SetActive(true);
-
             gameObject.SetActive(false);
         }
     }
