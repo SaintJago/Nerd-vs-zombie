@@ -7,12 +7,11 @@ public class MainMenu : MonoBehaviour
 {
     public void LoadLevel()
     {
-        SceneManager.LoadScene("Level1");// в кавычках название сцены на которую осуществляется переход
+        SceneManager.LoadScene("Level1");
     }
 
     public void ExitGame()
     {
-        Debug.Log("Игра закрылась");
         Application.Quit();
     }
 }
