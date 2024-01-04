@@ -24,23 +24,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4816327671808
-    m_Localized: 'You have 0 coins
-
-'
+    m_Localized: "\u0421oins"
     m_Metadata:
-      m_Items:
-      - id: 0
+      m_Items: []
   - m_Id: 8271930851328
-    m_Localized: 'Current wave: 2'
+    m_Localized: Current wave
     m_Metadata:
-      m_Items:
-      - id: 0
+      m_Items: []
   - m_Id: 8930478522368
     m_Localized: YOU LOSE.
     m_Metadata:
       m_Items: []
   - m_Id: 9104651190272
-    m_Localized: 'Current wave: 12'
+    m_Localized: Next wave
     m_Metadata:
       m_Items:
       - id: 0
@@ -108,9 +104,21 @@ MonoBehaviour:
     m_Localized: Quit
     m_Metadata:
       m_Items: []
+  - m_Id: 53562872692736
+    m_Localized: Not enough coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53973272756224
+    m_Localized: Bought
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95930971848704
+    m_Localized: "\u0421oins: 0"
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0000806361040000000080f585070000000080d747080000
+        m_Entries: 000080d747080000

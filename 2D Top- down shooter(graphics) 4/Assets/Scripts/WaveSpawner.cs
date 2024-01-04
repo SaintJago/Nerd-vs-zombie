@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -66,8 +67,14 @@ public class WaveSpawner : MonoBehaviour
 
     void UpdateTExt()
     {
-        if (isFreeTime) waveText.text = "До следующей волны: " + ((int)(curtimeBtwWaves -= Time.deltaTime)).ToString();
-        else waveText.text = "Текущая волна: " + currentwWaveIndex.ToString();
+        if (isFreeTime)
+        {
+            waveText.text = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Next wave").Result + ": " + ((int)(curtimeBtwWaves -= Time.deltaTime)).ToString();
+        }
+        else
+        {
+            waveText.text = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Current wave").Result + ": " + currentwWaveIndex.ToString();
+        }
     }
 
     IEnumerator CallNextWave(int waveIndex)

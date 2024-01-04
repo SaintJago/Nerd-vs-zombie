@@ -3,20 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Localization.Settings;
 
 public class DeathPanel : MonoBehaviour
 {
-
     [SerializeField] TextMeshProUGUI scoreText;
-
     [SerializeField] AudioClip popSound;
-
 
     private void Start()
     {
         WaveSpawner wsP = FindObjectOfType<WaveSpawner>();
-
-        scoreText.text = "Текущая волна: " + wsP.currentwWaveIndex.ToString();
+        var waveString = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Current wave");
+        waveString.Completed += op => {
+            scoreText.text = op.Result + ": " + wsP.currentwWaveIndex.ToString();
+        };
     }
 
     public void Restart()

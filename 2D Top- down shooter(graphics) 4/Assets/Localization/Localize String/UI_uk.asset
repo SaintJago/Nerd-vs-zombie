@@ -24,23 +24,19 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 4816327671808
-    m_Localized: "\u0423 \u0432\u0430\u0441 0 \u043C\u043E\u043D\u0435\u0442\u043E\u043A"
+    m_Localized: "\u041C\u043E\u043D\u0435\u0442\u043E\u043A"
     m_Metadata:
-      m_Items:
-      - id: 0
+      m_Items: []
   - m_Id: 8271930851328
-    m_Localized: "\u041F\u043E\u0442\u043E\u0447\u043D\u0430 \u0445\u0432\u0438\u043B\u044F:
-      2"
+    m_Localized: "\u041F\u043E\u0442\u043E\u0447\u043D\u0430 \u0445\u0432\u0438\u043B\u044F"
     m_Metadata:
-      m_Items:
-      - id: 0
+      m_Items: []
   - m_Id: 8930478522368
     m_Localized: "\u0422\u0418 \u041F\u0420\u041E\u0413\u0420\u0410\u0412"
     m_Metadata:
       m_Items: []
   - m_Id: 9104651190272
-    m_Localized: "\u041F\u043E\u0442\u043E\u0447\u043D\u0430 \u0445\u0432\u0438\u043B\u044F:
-      12"
+    m_Localized: "\u041D\u0430\u0441\u0442\u0443\u043F\u043D\u0430 \u0445\u0432\u0438\u043B\u044F"
     m_Metadata:
       m_Items:
       - id: 0
@@ -115,9 +111,21 @@ MonoBehaviour:
     m_Localized: "\u041F\u043E\u043A\u0438\u043D\u0443\u0442\u0438 \u0433\u0440\u0443"
     m_Metadata:
       m_Items: []
+  - m_Id: 53562872692736
+    m_Localized: "\u0417\u0430\u043C\u0430\u043B\u043E \u043C\u043E\u043D\u0435\u0442"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 53973272756224
+    m_Localized: "\u041A\u0443\u043F\u043B\u0435\u043D\u043E"
+    m_Metadata:
+      m_Items: []
+  - m_Id: 95930971848704
+    m_Localized: "\u041C\u043E\u043D\u0435\u0442\u043E\u043A: 0"
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
       type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
       data:
-        m_Entries: 0000806361040000000080f585070000000080d747080000
+        m_Entries: 000080d747080000

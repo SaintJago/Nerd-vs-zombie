@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization.Settings;
+
 
 public class Player : MonoBehaviour
 {
@@ -275,10 +277,18 @@ public class Player : MonoBehaviour
     }
 
     [HideInInspector] public int currentMoney;
-    [SerializeField] TextMeshProUGUI coinsText;
-    public void AddMoney(int value)
+[SerializeField] TextMeshProUGUI coinsText;
+
+public void AddMoney(int value)
     {
-        currentMoney += value;
-        coinsText.text = "У вас " + currentMoney.ToString() + " монеток";
+    currentMoney += value;
+    LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Coins").Completed += op =>
+      {
+        if (op.Status == UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded)
+        {
+            coinsText.text = op.Result + ": " + currentMoney.ToString();
+        }
+      };
     }
+
 }
