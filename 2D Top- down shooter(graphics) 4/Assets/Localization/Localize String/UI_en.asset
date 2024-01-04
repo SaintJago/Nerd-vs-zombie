@@ -16,7 +16,101 @@ MonoBehaviour:
     m_Code: en
   m_SharedData: {fileID: 11400000, guid: 4acf29c97358d2a4faae4fda0af064eb, type: 2}
   m_Metadata:
-    m_Items: []
-  m_TableData: []
+    m_Items:
+    - id: 0
+  m_TableData:
+  - m_Id: 1848735956992
+    m_Localized: Damage Improvement
+    m_Metadata:
+      m_Items: []
+  - m_Id: 4816327671808
+    m_Localized: 'You have 0 coins
+
+'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 8271930851328
+    m_Localized: 'Current wave: 2'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 8930478522368
+    m_Localized: YOU LOSE.
+    m_Metadata:
+      m_Items: []
+  - m_Id: 9104651190272
+    m_Localized: 'Current wave: 12'
+    m_Metadata:
+      m_Items:
+      - id: 0
+  - m_Id: 10118875840512
+    m_Localized: Again
+    m_Metadata:
+      m_Items: []
+  - m_Id: 10868389576704
+    m_Localized: 2 life
+    m_Metadata:
+      m_Items: []
+  - m_Id: 11316731314176
+    m_Localized: Menu
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12910722023424
+    m_Localized: 'Description: This enhancement adds 2 units of damage'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13536487014400
+    m_Localized: 100 coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13855652577280
+    m_Localized: Buy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 13983247499264
+    m_Localized: SUPER SHOT
+    m_Metadata:
+      m_Items: []
+  - m_Id: 14879025004544
+    m_Localized: 'Description: This enhancement adds a shotgun blast of shotgun fire'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 15387148156928
+    m_Localized: 150 coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29345779286016
+    m_Localized: Time between shots
+    m_Metadata:
+      m_Items: []
+  - m_Id: 29686612623360
+    m_Localized: 'Description: This enhancement decreases the time between shots'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30153082142720
+    m_Localized: 250 coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30688048840704
+    m_Localized: Vampirism
+    m_Metadata:
+      m_Items: []
+  - m_Id: 30983000686592
+    m_Localized: 'Description: This enhancement adds 1 xp when killing an enemy'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31372966100992
+    m_Localized: 350 coins
+    m_Metadata:
+      m_Items: []
+  - m_Id: 31816442445824
+    m_Localized: Quit
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
+    00000000:
+      type: {class: SmartFormatTag, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries: 0000806361040000000080f585070000000080d747080000
