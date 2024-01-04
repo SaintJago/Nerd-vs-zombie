@@ -3,21 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Localization;
+using UnityEngine.Localization.Settings;
+using UnityEngine.Localization.Tables;// Добавьте это
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] Button[] buyButtons;
-    [SerializeField] TextMeshProUGUI[] boughtTexts;
-    [SerializeField] int[] prices;
+    [SerializeField] Button[] buyButtons; // Ваши кнопки покупки
+    [SerializeField] TextMeshProUGUI[] boughtTexts; // Текстовые поля для отображения состояния покупки
+    [SerializeField] int[] prices; // Цены на ваши товары
 
-    [SerializeField] GameObject shopPanel;
+    [SerializeField] GameObject shopPanel; // Панель магазина
 
     public delegate void BuySeconPosition();
     public event BuySeconPosition buySeconPosition;
 
     public static Shop instance;
 
-    [SerializeField] AudioClip popSound, succesBuyClip;
+    [SerializeField] AudioClip popSound, succesBuyClip; // Звуки
 
     private void Awake()
     {
@@ -69,23 +72,24 @@ public class Shop : MonoBehaviour
         {
             if (PlayerPrefs.GetInt("Position" + i) == 1)
             {
-                SetButtonState(i, false, "Купленно");
+                SetButtonState(i, false, "Bought");
             }
             else if (Player.instance.currentMoney < prices[i])
             {
-                SetButtonState(i, false, "Мало монет");
+                SetButtonState(i, false, "NotEnoughCoins");
             }
             else
             {
-                SetButtonState(i, true, "Купить");
+                SetButtonState(i, true, "Buy");
             }
         }
     }
 
-    void SetButtonState(int index, bool interactable, string text)
+    async void SetButtonState(int index, bool interactable, string key)
     {
         buyButtons[index].interactable = interactable;
-        boughtTexts[index].text = text;
+        var op = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", key);
+        boughtTexts[index].text = await op.Task;
     }
 
     public void Buy(int index)
@@ -101,7 +105,6 @@ public class Shop : MonoBehaviour
     void MarkAsBought(int index)
     {
         buyButtons[index].interactable = false;
-        boughtTexts[index].text = "Купленно";
         PlayerPrefs.SetInt("Position" + index, 1);
         PlayerPrefs.Save(); // Сохранить изменения
 
