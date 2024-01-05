@@ -1892,7 +1892,7 @@ GameObject:
   - component: {fileID: 1183630268}
   - component: {fileID: 1183630267}
   m_Layer: 5
-  m_Name: LanguageMenu
+  m_Name: Language Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2962,6 +2962,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79359891f175554b8ffb11773f3d04b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  languagePanel: {fileID: 1183630265}
+  languageButtonPrefab: {fileID: 0}
 --- !u!1 &1570958309
 GameObject:
   m_ObjectHideFlags: 0
