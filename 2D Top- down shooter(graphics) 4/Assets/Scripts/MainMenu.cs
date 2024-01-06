@@ -4,22 +4,35 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
 using UnityEngine.SceneManagement;
+using TMPro;
+using System.Linq;
 
 public class MainMenu : MonoBehaviour
 {
     public GameObject languagePanel; // Панель для кнопок языка
     public GameObject languageButtonPrefab; // Префаб кнопки языка
 
+    // Словарь для хранения локализованных имен языков
+    private Dictionary<string, string> localizedLanguageNames = new Dictionary<string, string>
+    {
+        {"en", "English"},
+        {"ru", "Русский"},
+        {"uk", "Українська"}
+    };
+
+    // Загрузка уровня
     public void LoadLevel()
     {
         SceneManager.LoadScene("Level1");
     }
 
+    // Выход из игры
     public void ExitGame()
     {
         Application.Quit();
     }
 
+    // Открытие панели языка
     public void OpenLanguagePanel()
     {
         // Удалить все текущие кнопки
@@ -32,7 +45,9 @@ public class MainMenu : MonoBehaviour
         foreach (var locale in LocalizationSettings.AvailableLocales.Locales)
         {
             GameObject button = Instantiate(languageButtonPrefab, languagePanel.transform);
-            button.GetComponentInChildren<Text>().text = locale.name;
+            string languageCode = locale.Identifier.Code;
+            string languageName = localizedLanguageNames.ContainsKey(languageCode) ? localizedLanguageNames[languageCode] : locale.name;
+            button.GetComponentInChildren<TextMeshProUGUI>().text = languageName; // Установка текста кнопки
             button.GetComponent<Button>().onClick.AddListener(() => ChangeLanguage(locale.Identifier.Code));
         }
 
@@ -40,15 +55,14 @@ public class MainMenu : MonoBehaviour
         languagePanel.SetActive(true);
     }
 
+    // Изменение языка
     public void ChangeLanguage(string localeIdentifier)
     {
-        foreach (var locale in LocalizationSettings.AvailableLocales.Locales)
+        var locale = LocalizationSettings.AvailableLocales.Locales.FirstOrDefault(l => l.Identifier.Code == localeIdentifier);
+        if (locale != null)
         {
-            if (locale.Identifier.Code == localeIdentifier)
-            {
-                LocalizationSettings.SelectedLocale = locale;
-                break;
-            }
+            LocalizationSettings.SelectedLocale = locale;
         }
+        languagePanel.SetActive(false);
     }
 }
