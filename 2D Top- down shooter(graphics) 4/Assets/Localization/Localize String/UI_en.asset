@@ -116,6 +116,14 @@ MonoBehaviour:
     m_Localized: "\u0421oins: 0"
     m_Metadata:
       m_Items: []
+  - m_Id: 802647896489984
+    m_Localized: Music volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 802667299340288
+    m_Localized: Effect volume
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:

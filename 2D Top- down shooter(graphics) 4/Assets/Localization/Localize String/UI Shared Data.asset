@@ -111,6 +111,14 @@ MonoBehaviour:
     m_Key: coins_0
     m_Metadata:
       m_Items: []
+  - m_Id: 802647896489984
+    m_Key: Music volume
+    m_Metadata:
+      m_Items: []
+  - m_Id: 802667299340288
+    m_Key: Effect volume
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

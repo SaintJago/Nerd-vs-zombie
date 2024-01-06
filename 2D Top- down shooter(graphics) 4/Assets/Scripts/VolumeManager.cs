@@ -5,14 +5,32 @@ using UnityEngine.UI;
 
 public class VolumeManager : MonoBehaviour
 {
+    private static VolumeManager instance;
+
     private static readonly string FirstPlay = "FirstPlay";
     private static readonly string MusicPref = "MusicPref";
     private static readonly string SoundEffectsPref = "SoundEffectsPref";
     private int firstPlayInt;
     public Slider musicSlider, soundEffectsSlider;
     private float musicFloat, soundEffectsFloat;
-    public AudioSource musicAudio;
-    public AudioSource[] soundEffectsAudio;
+    public List<AudioSource> musicAudios;
+    public List<AudioSource> soundEffectsAudios;
+
+    private void Awake()
+    {
+      Debug.Log("VolumeManager Awake");
+      if (instance == null)
+      {
+          instance = this;
+          DontDestroyOnLoad(gameObject);
+      }
+      else
+      {
+          Destroy(gameObject);
+          Debug.Log("VolumeManager Destroyed");
+      }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +45,8 @@ public class VolumeManager : MonoBehaviour
             PlayerPrefs.SetFloat(MusicPref, musicFloat);
             PlayerPrefs.SetFloat(SoundEffectsPref, soundEffectsFloat);
             PlayerPrefs.SetInt(FirstPlay, -1);
+            musicSlider.onValueChanged.AddListener(delegate { UpdateSound(); });
+            soundEffectsSlider.onValueChanged.AddListener(delegate { UpdateSound(); });
         }
         else
         {
@@ -53,12 +73,14 @@ public class VolumeManager : MonoBehaviour
 
     public void UpdateSound() 
     {
-        musicAudio.volume = musicSlider.value;
-
-        for(int i = 0; i < soundEffectsAudio.Length; i++) 
+        foreach (var audio in musicAudios)
         {
-            soundEffectsAudio[i].volume = soundEffectsSlider.value;
+            audio.volume = musicSlider.value;
+        }
+
+        foreach (var audio in soundEffectsAudios)
+        {
+            audio.volume = soundEffectsSlider.value;
         }
     }
-
 }
