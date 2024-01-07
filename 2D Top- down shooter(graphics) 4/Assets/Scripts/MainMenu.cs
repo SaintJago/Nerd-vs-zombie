@@ -11,10 +11,8 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject languagePanel; // Панель для кнопок языка
     public GameObject languageButtonPrefab; // Префаб кнопки языка
-    public Slider volumeSlider; // Слайдер для регулировки громкости
 
     private string languageKey = "SelectedLanguage";
-    private string volumeKey = "SelectedVolume"; // Ключ для сохранения громкости
 
     private Dictionary<string, string> localizedLanguageNames = new Dictionary<string, string>
     {
@@ -29,9 +27,7 @@ public class MainMenu : MonoBehaviour
         string savedLanguage = PlayerPrefs.GetString(languageKey, "en");
         ChangeLanguage(savedLanguage);
 
-        // Загружаем сохраненное значение громкости
-        float savedVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
-        SetVolume(savedVolume);
+    
     }
 
     public void LoadLevel()
@@ -75,15 +71,5 @@ public class MainMenu : MonoBehaviour
             PlayerPrefs.Save();
         }
         languagePanel.SetActive(false);
-    }
-
-    public void SetVolume(float volume)
-    {
-        // Применяем изменение громкости к звуковым источникам в игре
-        AudioListener.volume = volume;
-
-        // Сохраняем значение громкости в PlayerPrefs
-        PlayerPrefs.SetFloat(volumeKey, volume);
-        PlayerPrefs.Save();
     }
 }

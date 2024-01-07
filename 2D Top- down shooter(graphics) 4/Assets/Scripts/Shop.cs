@@ -53,18 +53,25 @@ public class Shop : MonoBehaviour
     }
 
     void HandleShopPanelToggle()
+  {
+    if (Input.GetKeyDown(KeyCode.Escape))
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        shopPanel.SetActive(!shopPanel.activeInHierarchy);
+        Check();
+        SoundManager.instance.PlayerSound(popSound);
+        if (shopPanel.activeInHierarchy)
         {
-            shopPanel.SetActive(!shopPanel.activeInHierarchy);
-            Check();
-
-            SoundManager.instance.PlayerSound(popSound);
-
-            if (shopPanel.activeInHierarchy) Time.timeScale = 0;
-            else Time.timeScale = 1; Cursor.visible = false;
+            Time.timeScale = 0;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Time.timeScale = 1;
+            Cursor.visible = false;
         }
     }
+  }
+
 
     void Check()
     {
