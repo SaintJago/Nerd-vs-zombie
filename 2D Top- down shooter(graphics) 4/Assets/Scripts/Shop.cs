@@ -19,8 +19,6 @@ public class Shop : MonoBehaviour
     public event BuySeconPosition buySeconPosition;
 
     public static Shop instance;
-    [SerializeField] Player player;
-
 
     [SerializeField] AudioClip popSound, succesBuyClip; // Звуки
 
@@ -116,24 +114,8 @@ public class Shop : MonoBehaviour
         buyButtons[index].interactable = false;
         PlayerPrefs.SetInt("Position" + index, 1);
         PlayerPrefs.Save(); // Сохранить изменения
-        
+
         if (index == 2 && buySeconPosition != null) buySeconPosition.Invoke();
-        if (index == 4 && buySeconPosition != null)
-    {
-        buySeconPosition.Invoke();
-        
-        // Проверяем, что у игрока есть дрон
-        if (PlayerPrefs.GetInt("Position4") == 1)
-        {
-            Player.instance.droneInstance.SetActive(true);
-            // Устанавливаем цель для дрона
-            DroneMovement droneMovement = Player.instance.droneInstance.GetComponent<DroneMovement>();
-            if (droneMovement != null)
-            {
-                droneMovement.target = Player.instance.transform;
-            }
-        }
-    }
     }
 
     void DeleteShopData()

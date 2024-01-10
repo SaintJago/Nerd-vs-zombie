@@ -48,8 +48,6 @@ public class Player : MonoBehaviour
 
     [SerializeField] ParticleSystem footParticle;
     [SerializeField] GameObject deathPanel;
-    [SerializeField] GameObject dronePrefab;
-    public GameObject droneInstance { get; private set; }
 
     bool canBeDamaged = true;
 
@@ -78,8 +76,7 @@ public class Player : MonoBehaviour
         maxHealth = health;
 
         UpdateHealthUI();
-        droneInstance = Instantiate(dronePrefab, transform.position, Quaternion.identity);
-        droneInstance.SetActive(false);
+
     }
 
     // Update is called once per frame
