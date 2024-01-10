@@ -119,6 +119,18 @@ MonoBehaviour:
     m_Key: Effect volume
     m_Metadata:
       m_Items: []
+  - m_Id: 2108333418872832
+    m_Key: drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2108537752780800
+    m_Key: description_drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2109308305145856
+    m_Key: "1350 \u043C\u043E\u043D\u0435\u0442\u043E\u043A"
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

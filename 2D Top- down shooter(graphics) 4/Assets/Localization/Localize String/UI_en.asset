@@ -124,6 +124,18 @@ MonoBehaviour:
     m_Localized: Effect volume
     m_Metadata:
       m_Items: []
+  - m_Id: 2108333418872832
+    m_Localized: Drone
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2108537752780800
+    m_Localized: 'Description: This upgrade adds a drone'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2109308305145856
+    m_Localized: 1350 coins
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
