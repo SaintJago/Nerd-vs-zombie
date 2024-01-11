@@ -7638,7 +7638,7 @@ GameObject:
   - component: {fileID: 486807957}
   - component: {fileID: 486807956}
   m_Layer: 0
-  m_Name: Global Light 2D (2)
+  m_Name: Global Light 2D (street_light2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35144,7 +35144,7 @@ GameObject:
   - component: {fileID: 1627021139}
   - component: {fileID: 1627021138}
   m_Layer: 0
-  m_Name: Global Light 2D (4)
+  m_Name: Global Light 2D (street_light4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35499,7 +35499,7 @@ GameObject:
   - component: {fileID: 1670592289}
   - component: {fileID: 1670592288}
   m_Layer: 0
-  m_Name: Global Light 2D (6)
+  m_Name: Global Light 2D (shop)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -37848,7 +37848,7 @@ GameObject:
   - component: {fileID: 1765226381}
   - component: {fileID: 1765226380}
   m_Layer: 0
-  m_Name: Global Light 2D (3)
+  m_Name: Global Light 2D (street_light3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43003,7 +43003,7 @@ GameObject:
   - component: {fileID: 2057593668}
   - component: {fileID: 2057593667}
   m_Layer: 0
-  m_Name: Global Light 2D (1)
+  m_Name: Global Light 2D (street_light1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43158,7 +43158,7 @@ GameObject:
   - component: {fileID: 2064466001}
   - component: {fileID: 2064466000}
   m_Layer: 0
-  m_Name: Global Light 2D (5)
+  m_Name: Global Light 2D (street_light5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
