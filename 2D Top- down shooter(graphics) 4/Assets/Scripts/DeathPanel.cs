@@ -14,8 +14,9 @@ public class DeathPanel : MonoBehaviour
     {
         WaveSpawner wsP = FindObjectOfType<WaveSpawner>();
         var waveString = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Current wave");
-        waveString.Completed += op => {
-            scoreText.text = op.Result + ": " + wsP.currentwWaveIndex.ToString();
+        waveString.Completed += op => 
+        {
+          scoreText.text = op.Result + ": " + (wsP.currentWaveIndex + 1).ToString();
         };
     }
 

@@ -175,7 +175,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2106696704256776926}
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.0279, y: -0.3, z: 0}
   m_LocalScale: {x: -1.0072237, y: 1, z: 1}
   m_Children:
@@ -307,10 +307,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d016b582a7f093540a03fcfba122eedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 30
   stopDistance: 2.6
   distanceToRunOut: 1
-  speed: 4
+  speed: 5
   hitEffect: {fileID: 6436833712813307787, guid: b7ca3363fd72983458c8b83a2e32108e, type: 3}
   footParticle: {fileID: 890159308022328224}
   minCoinsAdd: 5
@@ -320,7 +320,7 @@ MonoBehaviour:
   attackClip: {fileID: 8300000, guid: 9cf8a3caa3919b6408f84953e06b565a, type: 3}
   timeBtwAttack: 2
   attackSpeed: 2
-  damage: 2
+  damage: 5
 --- !u!1 &2346720582438646491
 GameObject:
   m_ObjectHideFlags: 0

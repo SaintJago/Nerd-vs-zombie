@@ -7,20 +7,27 @@ using UnityEngine.Localization.Settings;
 public class WaveSpawner : MonoBehaviour
 {
     [System.Serializable]
+    public struct BossWave
+    {
+        public GameObject[] bosses;
+        public int count;
+    }
+
+    [System.Serializable]
     public struct Wave
     {
-        public Enemy[] enmies;
-        public int count;
+        public Enemy[] enemies;
+        public int enemyCount;
         public float timeBtwSpawn;
+        public BossWave bossWave;
     }
 
     [SerializeField] Wave[] waves;
-
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] float timeBtwWaves;
 
-    Wave currentwWave;
-    [HideInInspector] public int currentwWaveIndex;
+    Wave currentWave;
+    [HideInInspector] public int currentWaveIndex;
     Transform player;
 
     bool isSpawnFinished = false;
@@ -34,38 +41,44 @@ public class WaveSpawner : MonoBehaviour
 
     [SerializeField] AudioClip waveCompleteClip;
 
+    // Cache references
+    private Player playerInstance;
+
     private void Start()
     {
-        player = Player.instance.transform;
+        playerInstance = Player.instance;
+
+        player = playerInstance.transform;
 
         curtimeBtwWaves = timeBtwWaves;
 
-        UpdateTExt();
+        UpdateText();
 
-        StartCoroutine(CallNextWave(currentwWaveIndex));
+        StartCoroutine(CallNextWave(currentWaveIndex));
     }
 
     private void Update()
     {
-        UpdateTExt();
+        UpdateText();
 
         if (isSpawnFinished && GameObject.FindGameObjectsWithTag("Enemy").Length == 0)
         {
             isSpawnFinished = false;
 
-            if(currentwWaveIndex + 1 < waves.Length)
+            if(currentWaveIndex + 1 < waves.Length)
             {
-                currentwWaveIndex++;
-                StartCoroutine(CallNextWave(currentwWaveIndex));
+                currentWaveIndex++;
+                StartCoroutine(CallNextWave(currentWaveIndex));
             }
             else
             {
-                //Создание босса
+                // Spawn the bosses
+                StartCoroutine(SpawnBosses(currentWave.bossWave));
             }
         }
     }
 
-    void UpdateTExt()
+    void UpdateText()
     {
         if (isFreeTime)
         {
@@ -73,7 +86,7 @@ public class WaveSpawner : MonoBehaviour
         }
         else
         {
-            waveText.text = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Current wave").Result + ": " + currentwWaveIndex.ToString();
+          waveText.text = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Current wave").Result + ": " + (currentWaveIndex + 1).ToString();
         }
     }
 
@@ -86,24 +99,24 @@ public class WaveSpawner : MonoBehaviour
 
         yield return new WaitForSeconds(timeBtwWaves);
         isFreeTime = false;
-        StartCoroutine(SpawWave(waveIndex));
+        StartCoroutine(SpawnWave(waveIndex));
     }
 
-    IEnumerator SpawWave(int waveIndex)
+    IEnumerator SpawnWave(int waveIndex)
     {
-        currentwWave = waves[waveIndex];
+        currentWave = waves[waveIndex];
 
-        for (int i = 0; i < currentwWave.count; i++)
+        for (int i = 0; i < currentWave.enemyCount; i++)
         {
             if (player == null) yield break;
 
-            Enemy randomEnemy = currentwWave.enmies[Random.Range(0, currentwWave.enmies.Length)];
+            Enemy randomEnemy = currentWave.enemies[Random.Range(0, currentWave.enemies.Length)];
             Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
 
             Instantiate(randomEnemy, randomSpawnPoint.position, Quaternion.identity);
             Instantiate(spawnEffect, randomSpawnPoint.position, Quaternion.identity);
 
-            if(i == currentwWave.count - 1)
+            if(i == currentWave.enemyCount - 1)
             {
                 isSpawnFinished = true;
             }
@@ -112,7 +125,23 @@ public class WaveSpawner : MonoBehaviour
                 isSpawnFinished = false;
             }
 
-            yield return new WaitForSeconds(currentwWave.timeBtwSpawn);
+            yield return new WaitForSeconds(currentWave.timeBtwSpawn);
+        }
+    }
+
+    IEnumerator SpawnBosses(BossWave bossWave)
+    {
+        for (int i = 0; i < bossWave.count; i++)
+        {
+            if (player == null) yield break;
+
+            GameObject randomBoss = bossWave.bosses[Random.Range(0, bossWave.bosses.Length)];
+            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
+
+            Instantiate(randomBoss, randomSpawnPoint.position, Quaternion.identity);
+            Instantiate(spawnEffect, randomSpawnPoint.position, Quaternion.identity);
+
+            yield return new WaitForSeconds(currentWave.timeBtwSpawn);
         }
     }
 }
