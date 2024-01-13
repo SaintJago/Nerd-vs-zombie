@@ -2470,9 +2470,17 @@ MonoBehaviour:
       - {fileID: 2106696704256776926, guid: f6d49b172f72d2047839ca7b43d79d0b, type: 3}
       count: 1
   - enemies:
-    - {fileID: 0}
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
     enemyCount: 5
-    timeBtwSpawn: 0
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 5
+    timeBtwSpawn: 1
     timeBtwBossSpawn: 0
     bossWave:
       bosses: []
