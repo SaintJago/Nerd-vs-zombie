@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Localization.Settings;
-using UnityEngine.SceneManagement;
 using TMPro;
 using System.Linq;
 
@@ -11,6 +10,8 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject languagePanel; // Панель для кнопок языка
     public GameObject languageButtonPrefab; // Префаб кнопки языка
+    public GameObject LevelSelectMenu; // Панель для выбора уровней
+
 
     private string languageKey = "SelectedLanguage";
 
@@ -30,9 +31,9 @@ public class MainMenu : MonoBehaviour
     
     }
 
-    public void LoadLevel()
+    public void OpenLevelSelectMenu()
     {
-        SceneManager.LoadScene("Level1");
+        LevelSelectMenu.SetActive(true);
     }
 
     public void ExitGame()
