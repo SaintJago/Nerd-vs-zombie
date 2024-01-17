@@ -10,7 +10,7 @@ public class LevelSelectionMenuManager : MonoBehaviour
   public void onClickLevel(int levelNum) 
     {
     currLevel = levelNum;
-    SceneManager.LoadScene("Level1");
+    SceneManager.LoadScene("Level" + (levelNum + 1));
     }
     void Start()
     {
