@@ -13,5 +13,6 @@ public class Cursore : MonoBehaviour
     {
         Vector2 cPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         transform.position = cPos;
+        Cursor.visible = false;
     }
 }
