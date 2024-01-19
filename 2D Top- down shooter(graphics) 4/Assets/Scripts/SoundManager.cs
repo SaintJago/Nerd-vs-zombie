@@ -1,28 +1,87 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.Audio;
+using UnityEngine.SceneManagement;
 
-public class SoundManager : MonoBehaviour
+namespace MyGame
 {
-    AudioSource audS;
-    public static SoundManager instance;
-
-    private void Awake()
+    public class SoundManager : MonoBehaviour
     {
-        instance = this;
-    }
+        public static SoundManager Instance { get; private set; }
+        [SerializeField] AudioMixer mixer;
+        [SerializeField] Slider musicSlider;
+        [SerializeField] Slider sfxSlider;
+        const string MIXER_MUSIC = "MusicVolume";
+        const string MIXER_SFX = "SFXVolume";
+        float _musicVolume;
+        float _sfxVolume;
+        AudioSource audS;
 
-    private void Start()
-    {
-        audS = GetComponent<AudioSource>();
-    }
+        void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Debug.Log("SoundManager instance already exists. Destroying this one.");
+                Destroy(gameObject);
+            }
+            audS = GetComponent<AudioSource>();
+            // Загрузка сохраненных значений при запуске
+            musicSlider.value = PlayerPrefs.GetFloat(MIXER_MUSIC, 0.75f);
+            sfxSlider.value = PlayerPrefs.GetFloat(MIXER_SFX, 0.75f);
 
-    public void PlayerSound(AudioClip value)
-    {
-        if (!audS) return;
+            musicSlider.onValueChanged.AddListener(SetMusicVolume);
+            sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+        }
+        void Start()
+        {
+            // Установка громкости при запуске сцены
+            SetMusicVolume(musicSlider.value);
+            SetSFXVolume(sfxSlider.value);
+        }
+        public void PlayerSound(AudioClip value)
+        {
+            if (Instance == null)
+            {
+                Debug.LogError("SoundManager.Instance is null. Make sure the SoundManager script is set up correctly.");
+                return;
+            }
 
-        audS.pitch = Random.Range(0.9f, 1.1f);
+            if (audS == null)
+            {
+                Debug.LogError("AudioSource is null. Make sure it is assigned in the inspector.");
+                return;
+            }
 
-        audS.PlayOneShot(value);
+            audS.pitch = Random.Range(0.9f, 1.1f);
+            audS.PlayOneShot(value);
+        }
+
+        public void SetVolume(string name, float value)
+        {
+            mixer.SetFloat(name, Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(name, value);
+        }
+
+        void SetMusicVolume(float value)
+        {
+            mixer.SetFloat(MIXER_MUSIC, Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(MIXER_MUSIC, value); // Сохранение значения
+        }
+
+        void SetSFXVolume(float value)
+        {
+            mixer.SetFloat(MIXER_SFX, Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(MIXER_SFX, value); // Сохранение значения
+        }
+
+        private void OnApplicationQuit()
+        {
+            PlayerPrefs.Save(); // Сохранение всех изменений при выходе из игры
+        }
     }
 }

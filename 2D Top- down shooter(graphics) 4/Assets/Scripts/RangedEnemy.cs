@@ -8,24 +8,23 @@ public class RangedEnemy : Enemy
     [SerializeField] float timeBtwAttack;
     [SerializeField] Transform shotPos;
     new protected Transform player; // скрывает поле player в родительском классе
-
     [SerializeField] GameObject bullet;
+    [SerializeField] AudioClip attackClip; // Аудиоклип для звука атаки
+
+    private AudioSource audioSource; // Добавляем поле для компонента AudioSource
 
     public override void Start()
     {
         base.Start();
-
+        audioSource = GetComponent<AudioSource>(); // Инициализируем компонент AudioSource
         timer = timeBtwAttack;
-        player = Player.instance.transform;
+        player = Player.Instance.transform;
     }
-
 
     public override void Update()
     {
         base.Update();
-
         timer += Time.deltaTime;
-
         if (CheckIfCanAttack() && player)
         {
             if (timer >= timeBtwAttack)
@@ -38,13 +37,14 @@ public class RangedEnemy : Enemy
 
     void Shoot()
     {
-        SoundManager.instance.PlayerSound(attackClip);
-
+        if (audioSource != null && attackClip != null)
+        {
+            audioSource.PlayOneShot(attackClip); // Воспроизводим звук атаки
+        }
         Vector2 direction = player.position - shotPos.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         shotPos.rotation = rotation;
-
         Instantiate(bullet, shotPos.position, shotPos.rotation);
     }
 }

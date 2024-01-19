@@ -10,17 +10,19 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     float timerBtwAd;
 
     [SerializeField] AudioClip popSound;
+    private AudioSource audioSource; // Добавляем компонент AudioSource
 
     void Start()
     {
         Advertisement.Initialize("5175129", false, this);
+        audioSource = GetComponent<AudioSource>(); // Получаем компонент AudioSource
     }
 
     void Update()
     {
         timerBtwAd += Time.deltaTime;
 
-        if(timerBtwAd >= timeBtwAd)
+        if (timerBtwAd >= timeBtwAd)
         {
             Advertisement.Show("Interstitial_Android", this);
             timerBtwAd = 0;
@@ -30,7 +32,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     public void ShowAd()
     {
         Advertisement.Show("Rewarded_Android", this);
-        SoundManager.instance.PlayerSound(popSound);
+        audioSource.PlayOneShot(popSound); // Используем AudioSource для воспроизведения звука
     }
 
     public void OnInitializationComplete()
@@ -56,13 +58,13 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
 
     public void OnUnityAdsShowComplete(string placementId, UnityAdsShowCompletionState showCompletionState)
     {
-        if(placementId == "Rewarded_Android")
+        if (placementId == "Rewarded_Android")
         {
             Time.timeScale = 1; // возобновляет игру
             rewardedAdsButton.SetActive(false);
             deathPanel.SetActive(false);
-            Player.instance.gameObject.SetActive(true);
-            Player.instance.AddHealth(Player.instance.maxHealth);
+            Player.Instance.gameObject.SetActive(true);
+            Player.Instance.AddHealth(Player.Instance.maxHealth);
         }
     }
 

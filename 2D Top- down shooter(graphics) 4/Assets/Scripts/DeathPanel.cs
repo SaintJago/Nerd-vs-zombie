@@ -9,27 +9,30 @@ public class DeathPanel : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] AudioClip popSound;
+    private AudioSource audioSource; // Добавляем компонент AudioSource
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>(); // Получаем компонент AudioSource
         WaveSpawner wsP = FindObjectOfType<WaveSpawner>();
         var waveString = LocalizationSettings.StringDatabase.GetLocalizedStringAsync("UI", "Current wave");
-        waveString.Completed += op => 
+        waveString.Completed += op =>
         {
-          scoreText.text = op.Result + ": " + (wsP.currentWaveIndex + 1).ToString();
+            scoreText.text = op.Result + ": " + (wsP.currentWaveIndex + 1).ToString();
         };
     }
 
     public void Restart()
     {
         Time.timeScale = 1; // возобновляет игру
-        SoundManager.instance.PlayerSound(popSound);
+        audioSource.PlayOneShot(popSound); // Используем AudioSource для воспроизведения звука
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadMenu()
     {
         Time.timeScale = 1f;
+        audioSource.PlayOneShot(popSound); // Используем AudioSource для воспроизведения звука при загрузке меню
         SceneManager.LoadScene("Menu");
     }
 }

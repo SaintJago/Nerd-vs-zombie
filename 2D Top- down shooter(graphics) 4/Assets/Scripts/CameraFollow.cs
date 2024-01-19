@@ -11,12 +11,12 @@ public class CameraFollow : MonoBehaviour
 
     Animator anim;
 
-    public static CameraFollow instance;
+    public static CameraFollow Instance;
 
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
     }
 
     private void Start()
@@ -34,12 +34,12 @@ public class CameraFollow : MonoBehaviour
             Mathf.Clamp(target.position.y, minY, maxY),
             -10),
             followSpeed * Time.fixedDeltaTime);
-            
-            
-            /*new Vector3(
-            Mathf.Clamp(target.position.x, minX, maxX),
-            Mathf.Clamp(target.position.y, minY, maxY),
-            -10);    */
+
+
+        /*new Vector3(
+        Mathf.Clamp(target.position.x, minX, maxX),
+        Mathf.Clamp(target.position.y, minY, maxY),
+        -10);    */
     }
 
     public void CamShake()

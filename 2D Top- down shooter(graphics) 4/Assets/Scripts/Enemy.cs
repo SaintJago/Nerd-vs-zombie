@@ -7,11 +7,12 @@ public class Enemy : MonoBehaviour
     Rigidbody2D rb;
     Animator anim;
     SpriteRenderer spR;
+    AudioSource audioSource; // Добавлен компонент AudioSource
 
     [SerializeField] int health;
     [SerializeField] float stopDistance, distanceToRunOut, speed;
 
-    protected Player player; // поле player теперь защищено
+    protected Player player;
     bool isDeath = false;
 
     bool canAttack = false;
@@ -24,14 +25,16 @@ public class Enemy : MonoBehaviour
     [SerializeField] int minCoinsAdd, maxCoinsAdd;
 
     [SerializeField] AudioClip heartClip, deathClip;
-    [SerializeField] protected AudioClip attackClip;
+    [SerializeField] protected AudioClip baseattackClip;
+
     public virtual void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spR = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>(); // Инициализация компонента AudioSource
 
-        player = Player.instance;
+        player = Player.Instance;
 
         StartCoroutine(nameof(SetRandomPos));
         EnemyOrderInLayerManager.instance.Add(spR);
@@ -41,7 +44,6 @@ public class Enemy : MonoBehaviour
     {
         EnemyOrderInLayerManager.instance.Dell(spR);
     }
-
 
     public virtual void Update()
     {
@@ -68,7 +70,7 @@ public class Enemy : MonoBehaviour
 
             canAttack = false;
         }
-        else if(player && Vector2.Distance(transform.position, player.transform.position) < distanceToRunOut)
+        else if (player && Vector2.Distance(transform.position, player.transform.position) < distanceToRunOut)
         {
             transform.position = Vector2.MoveTowards(transform.position, player.transform.position + addRandPosToGo, -speed * Time.fixedDeltaTime);
             anim.SetBool("run", true);
@@ -116,7 +118,7 @@ public class Enemy : MonoBehaviour
         health -= damage;
 
         Instantiate(hitEffect, transform.position, Quaternion.identity);
-        SoundManager.instance.PlayerSound(heartClip);
+        audioSource.PlayOneShot(heartClip); // Воспроизведение звука при получении урона
 
         if (health <= 0) Death();
     }
@@ -125,10 +127,10 @@ public class Enemy : MonoBehaviour
     {
         isDeath = true;
 
-        SoundManager.instance.PlayerSound(deathClip);
+        audioSource.PlayOneShot(deathClip); // Воспроизведение звука при смерти
 
-        Player.instance.AddMoney(Random.Range(minCoinsAdd, maxCoinsAdd));
-        if (PlayerPrefs.GetInt("Position3") == 1) Player.instance.AddHealth(1);
+        Player.Instance.AddMoney(Random.Range(minCoinsAdd, maxCoinsAdd));
+        if (PlayerPrefs.GetInt("Position3") == 1) Player.Instance.AddHealth(1);
 
         anim.SetTrigger("death");
     }

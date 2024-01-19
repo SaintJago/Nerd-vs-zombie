@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Localization.Settings;
+using MyGame;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -47,7 +48,7 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
-        playerInstance = Player.instance;
+        playerInstance = Player.Instance;
 
         player = playerInstance.transform;
 
@@ -96,7 +97,7 @@ public class WaveSpawner : MonoBehaviour
         curtimeBtwWaves = timeBtwWaves;
 
         isFreeTime = true;
-        SoundManager.instance.PlayerSound(waveCompleteClip);
+        SoundManager.Instance.PlayerSound(waveCompleteClip);
 
         yield return new WaitForSeconds(timeBtwWaves);
         isFreeTime = false;

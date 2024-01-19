@@ -6,19 +6,21 @@ using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
 using UnityEngine.Localization.Tables;// Добавьте это
+using MyGame;
 
 public class Shop : MonoBehaviour
 {
     [SerializeField] Button[] buyButtons; // Ваши кнопки покупки
     [SerializeField] TextMeshProUGUI[] boughtTexts; // Текстовые поля для отображения состояния покупки
     [SerializeField] int[] prices; // Цены на ваши товары
+    //[SerializeField] Button shopButton; // Ваша кнопка магазина
 
     [SerializeField] GameObject shopPanel; // Панель магазина
 
     public delegate void BuySeconPosition();
     public event BuySeconPosition buySeconPosition;
 
-    public static Shop instance;
+    public static Shop Instance;
     [SerializeField] Player player;
 
 
@@ -26,14 +28,24 @@ public class Shop : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;
+        Instance = this;
         DeleteShopData(); // Удалить все сохраненные данные магазина
     }
 
     private void Start()
     {
         InitializeShop();
+        //shopButton.onClick.AddListener(OpenShop); // Добавьте это
     }
+
+   // void OpenShop()
+    //{
+        //shopPanel.SetActive(true);
+        //Check();
+       // SoundManager.Instance.PlayerSound(popSound);
+        //Time.timeScale = 0;
+        //Cursor.visible = true;
+    //}
 
     private void Update()
     {
@@ -55,24 +67,24 @@ public class Shop : MonoBehaviour
     }
 
     void HandleShopPanelToggle()
-  {
-    if (Input.GetKeyDown(KeyCode.Escape))
     {
-        shopPanel.SetActive(!shopPanel.activeInHierarchy);
-        Check();
-        SoundManager.instance.PlayerSound(popSound);
-        if (shopPanel.activeInHierarchy)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Time.timeScale = 0;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            Cursor.visible = false;
+            shopPanel.SetActive(!shopPanel.activeInHierarchy);
+            Check();
+            SoundManager.Instance.PlayerSound(popSound);
+            if (shopPanel.activeInHierarchy)
+            {
+                Time.timeScale = 0;
+                Cursor.visible = true;
+            }
+            else
+            {
+                Time.timeScale = 1;
+                Cursor.visible = false;
+            }
         }
     }
-  }
 
 
     void Check()
@@ -83,7 +95,7 @@ public class Shop : MonoBehaviour
             {
                 SetButtonState(i, false, "Bought");
             }
-            else if (Player.instance.currentMoney < prices[i])
+            else if (Player.Instance.currentMoney < prices[i])
             {
                 SetButtonState(i, false, "NotEnoughCoins");
             }
@@ -103,10 +115,10 @@ public class Shop : MonoBehaviour
 
     public void Buy(int index)
     {
-        if (Player.instance.currentMoney >= prices[index])
+        if (Player.Instance.currentMoney >= prices[index])
         {
             MarkAsBought(index);
-            Player.instance.AddMoney(-prices[index]);
+            Player.Instance.AddMoney(-prices[index]);
             Check();
         }
     }
@@ -116,24 +128,24 @@ public class Shop : MonoBehaviour
         buyButtons[index].interactable = false;
         PlayerPrefs.SetInt("Position" + index, 1);
         PlayerPrefs.Save(); // Сохранить изменения
-        
+
         if (index == 2 && buySeconPosition != null) buySeconPosition.Invoke();
         if (index == 4 && buySeconPosition != null)
-    {
-        buySeconPosition.Invoke();
-        
-        // Проверяем, что у игрока есть дрон
-        if (PlayerPrefs.GetInt("Position4") == 1)
         {
-            Player.instance.droneInstance.SetActive(true);
-            // Устанавливаем цель для дрона
-            DroneMovement droneMovement = Player.instance.droneInstance.GetComponent<DroneMovement>();
-            if (droneMovement != null)
+            buySeconPosition.Invoke();
+
+            // Проверяем, что у игрока есть дрон
+            if (PlayerPrefs.GetInt("Position4") == 1)
             {
-                droneMovement.target = Player.instance.transform;
+                Player.Instance.droneInstance.SetActive(true);
+                // Устанавливаем цель для дрона
+                DroneMovement droneMovement = Player.Instance.droneInstance.GetComponent<DroneMovement>();
+                if (droneMovement != null)
+                {
+                    droneMovement.target = Player.Instance.transform;
+                }
             }
         }
-    }
     }
 
     void DeleteShopData()

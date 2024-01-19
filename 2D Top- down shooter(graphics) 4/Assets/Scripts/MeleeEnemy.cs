@@ -8,11 +8,14 @@ public class MeleeEnemy : Enemy
     float timer;
     [SerializeField] float timeBtwAttack, attackSpeed;
     [SerializeField] int damage;
+    [SerializeField] AudioClip attackClip;// Убедитесь, что аудиоклип назначен в инспекторе Unity
+
+    private AudioSource audioSource_; // Добавляем компонент AudioSource
 
     public override void Start()
     {
         base.Start();
-
+        audioSource_ = GetComponent<AudioSource>(); // Получаем компонент AudioSource
         timer = timeBtwAttack;
     }
 
@@ -35,13 +38,13 @@ public class MeleeEnemy : Enemy
 
     IEnumerator Attack()
     {
-        Player.instance.Damage(damage);
+        Player.Instance.Damage(damage);
 
-        SoundManager.instance.PlayerSound(attackClip);
+        audioSource_.PlayOneShot(attackClip); // Используем AudioSource для воспроизведения звука
 
 
         Vector2 origPos = transform.position;
-        Vector2 plPos = Player.instance.transform.position;
+        Vector2 plPos = Player.Instance.transform.position;
 
         float percent = 0f;
 
