@@ -27,7 +27,7 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField] Wave[] waves;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] float timeBtwWaves;
-
+    [SerializeField] AudioSource waveAudioSource;
     Wave currentWave;
     [HideInInspector] public int currentWaveIndex;
     Transform player;
@@ -48,6 +48,8 @@ public class WaveSpawner : MonoBehaviour
 
     private void Start()
     {
+        waveAudioSource = GetComponent<AudioSource>();
+
         playerInstance = Player.Instance;
 
         player = playerInstance.transform;
@@ -97,7 +99,11 @@ public class WaveSpawner : MonoBehaviour
         curtimeBtwWaves = timeBtwWaves;
 
         isFreeTime = true;
-        SoundManager.Instance.PlayerSound(waveCompleteClip);
+        // Воспроизвести звук завершения волны
+        if (waveAudioSource != null && waveCompleteClip != null)
+        {
+            waveAudioSource.PlayOneShot(waveCompleteClip);
+        }
 
         yield return new WaitForSeconds(timeBtwWaves);
         isFreeTime = false;

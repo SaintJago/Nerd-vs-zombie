@@ -52,7 +52,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 13536487014400
-    m_Key: 100_coins
+    m_Key: 100
     m_Metadata:
       m_Items: []
   - m_Id: 13855652577280
@@ -68,7 +68,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 15387148156928
-    m_Key: 150_coins
+    m_Key: 150
     m_Metadata:
       m_Items: []
   - m_Id: 29345779286016
@@ -80,7 +80,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 30153082142720
-    m_Key: 250_coins
+    m_Key: 250
     m_Metadata:
       m_Items: []
   - m_Id: 30688048840704
@@ -92,7 +92,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 31372966100992
-    m_Key: 350_coins
+    m_Key: 350
     m_Metadata:
       m_Items: []
   - m_Id: 31816442445824
@@ -128,7 +128,7 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 2109308305145856
-    m_Key: "1350 \u043C\u043E\u043D\u0435\u0442\u043E\u043A"
+    m_Key: 1350
     m_Metadata:
       m_Items: []
   m_Metadata:
