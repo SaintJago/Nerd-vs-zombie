@@ -3182,6 +3182,8 @@ MonoBehaviour:
   - {fileID: 94171486}
   prices: 6400000096000000fa0000005e01000001000000
   shopPanel: {fileID: 1146234494}
+  soundButton: {fileID: 1301934232}
+  soundMenu: {fileID: 491959020}
   player: {fileID: 1468479170}
   popSound: {fileID: 8300000, guid: f0a445804593df94e81935f971d1c8ab, type: 3}
   succesBuyClip: {fileID: 8300000, guid: 6f9ef9c1e2a09c842acef5677f5eb14a, type: 3}
@@ -23435,7 +23437,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1146234495
 RectTransform:
   m_ObjectHideFlags: 0

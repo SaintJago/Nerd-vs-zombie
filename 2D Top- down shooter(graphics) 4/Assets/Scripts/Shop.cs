@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Localization;
 using UnityEngine.Localization.Settings;
-using UnityEngine.Localization.Tables;// Добавьте это
+using UnityEngine.Localization.Tables;
 using MyGame;
+using UnityEngine.SceneManagement;
 
 public class Shop : MonoBehaviour
 {
-    [SerializeField] Button[] buyButtons; // Ваши кнопки покупки
+    [SerializeField] Button[] buyButtons; // Кнопки покупки
     [SerializeField] TextMeshProUGUI[] boughtTexts; // Текстовые поля для отображения состояния покупки
-    [SerializeField] int[] prices; // Цены на ваши товары
-    //[SerializeField] Button shopButton; // Ваша кнопка магазина
+    [SerializeField] int[] prices; // Цены на товары
 
     [SerializeField] GameObject shopPanel; // Панель магазина
 
@@ -21,8 +19,13 @@ public class Shop : MonoBehaviour
     public event BuySeconPosition buySeconPosition;
 
     public static Shop Instance;
-    [SerializeField] Player player;
+    public GameObject soundButton;
+    public GameObject soundMenu;
+    public static bool isPaused = false;
+    public static bool PauseGame = false;
+    private bool isShopOpen;
 
+    [SerializeField] Player player;
 
     [SerializeField] AudioClip popSound, succesBuyClip; // Звуки
 
@@ -35,23 +38,90 @@ public class Shop : MonoBehaviour
     private void Start()
     {
         InitializeShop();
-        //shopButton.onClick.AddListener(OpenShop); // Добавьте это
     }
 
-   // void OpenShop()
-    //{
-        //shopPanel.SetActive(true);
-        //Check();
-       // SoundManager.Instance.PlayerSound(popSound);
-        //Time.timeScale = 0;
-        //Cursor.visible = true;
-    //}
+    // Закрыть магазин
+    private void CloseShop()
+    {
+        isShopOpen = false;
+        shopPanel.SetActive(false);
+        Resume(); // Снять с паузы
+    }
 
     private void Update()
     {
         HandleShopPanelToggle();
     }
 
+    // Нажатие кнопки звука
+    public void SoundButtonPressed()
+    {
+        if (soundMenu.activeSelf && !shopPanel.activeSelf)
+        {
+            soundMenu.SetActive(false);
+            Resume();
+        }
+        else if (soundMenu.activeSelf && shopPanel.activeSelf)
+        {
+            soundMenu.SetActive(false);
+        }
+        else
+        {
+            OpenSoundMenu();
+        }
+    }
+
+    // Открыть меню звука
+    public void OpenSoundMenu()
+    {
+        soundMenu.SetActive(true);
+        Time.timeScale = 0f;
+        PauseGame = true;
+        isPaused = true;
+    }
+
+    // Открыть магазин
+    public void OpenShop()
+    {
+        shopPanel.SetActive(true);
+        Check();
+        SoundManager.Instance.PlayerSound(popSound);
+        Time.timeScale = 0;
+        Cursor.visible = true;
+
+        if (isShopOpen)
+        {
+            // Магазин уже открыт, закрываем его
+            CloseShop();
+        }
+        else
+        {
+            // Открываем магазин
+            isShopOpen = true;
+            shopPanel.SetActive(true);
+        }
+    }
+
+    // Снять с паузы
+    public void Resume()
+    {
+        shopPanel.SetActive(false);
+        soundMenu.SetActive(false);
+        Time.timeScale = 1f;
+        PauseGame = false;
+        isPaused = false;
+        isShopOpen = false; // Сбрасываем флаг открытости магазина
+    }
+
+    // Загрузить меню
+    public void LoadMenu()
+    {
+        StopAllCoroutines();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
+    }
+
+    // Инициализировать магазин
     void InitializeShop()
     {
         for (int i = 0; i < buyButtons.Length; i++)
@@ -66,27 +136,24 @@ public class Shop : MonoBehaviour
         Check();
     }
 
+    // Обработчик переключения панели магазина
     void HandleShopPanelToggle()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Cancel"))
         {
-            shopPanel.SetActive(!shopPanel.activeInHierarchy);
-            Check();
-            SoundManager.Instance.PlayerSound(popSound);
-            if (shopPanel.activeInHierarchy)
+            if (isShopOpen)
             {
-                Time.timeScale = 0;
-                Cursor.visible = true;
+                // Если магазин открыт, закрываем его
+                CloseShop();
             }
             else
             {
-                Time.timeScale = 1;
-                Cursor.visible = false;
+                // Если магазин закрыт, открываем его
+                OpenShop();
             }
         }
     }
-
-
+    // Проверить состояние кнопок
     void Check()
     {
         for (int i = 0; i < buyButtons.Length; i++)
@@ -106,6 +173,7 @@ public class Shop : MonoBehaviour
         }
     }
 
+    // Установить состояние кнопки
     async void SetButtonState(int index, bool interactable, string key)
     {
         buyButtons[index].interactable = interactable;
@@ -113,6 +181,7 @@ public class Shop : MonoBehaviour
         boughtTexts[index].text = await op.Task;
     }
 
+    // Купить товар
     public void Buy(int index)
     {
         if (Player.Instance.currentMoney >= prices[index])
@@ -123,6 +192,7 @@ public class Shop : MonoBehaviour
         }
     }
 
+    // Отметить товар как купленный
     void MarkAsBought(int index)
     {
         buyButtons[index].interactable = false;
@@ -148,6 +218,7 @@ public class Shop : MonoBehaviour
         }
     }
 
+    // Удалить данные магазина
     void DeleteShopData()
     {
         for (int i = 0; i < buyButtons.Length; i++)
