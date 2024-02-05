@@ -11,10 +11,14 @@ namespace MyGame
         [SerializeField] AudioMixer mixer;
         [SerializeField] Slider musicSlider;
         [SerializeField] Slider sfxSlider;
+        [SerializeField] Slider shotSlider;
         const string MIXER_MUSIC = "MusicVolume";
         const string MIXER_SFX = "SFXVolume";
+        const string MIXER_SHOT = "ShotVolume";
         float _musicVolume;
         float _sfxVolume;
+        float _shotVolume;
+
         AudioSource audS;
 
         void Awake()
@@ -33,15 +37,18 @@ namespace MyGame
             // Загрузка сохраненных значений при запуске
             musicSlider.value = PlayerPrefs.GetFloat(MIXER_MUSIC, 0.75f);
             sfxSlider.value = PlayerPrefs.GetFloat(MIXER_SFX, 0.75f);
+            shotSlider.value = PlayerPrefs.GetFloat(MIXER_SHOT, 0.75f);
 
             musicSlider.onValueChanged.AddListener(SetMusicVolume);
             sfxSlider.onValueChanged.AddListener(SetSFXVolume);
+            shotSlider.onValueChanged.AddListener(SetShotVolume);
         }
         void Start()
         {
             // Установка громкости при запуске сцены
             SetMusicVolume(musicSlider.value);
             SetSFXVolume(sfxSlider.value);
+            SetShotVolume(shotSlider.value);
         }
         public void PlayerSound(AudioClip value)
         {
@@ -77,6 +84,12 @@ namespace MyGame
         {
             mixer.SetFloat(MIXER_SFX, Mathf.Log10(value) * 20);
             PlayerPrefs.SetFloat(MIXER_SFX, value); // Сохранение значения
+        }
+
+        void SetShotVolume(float value)
+        {
+            mixer.SetFloat(MIXER_SHOT, Mathf.Log10(value) * 20);
+            PlayerPrefs.SetFloat(MIXER_SHOT, value); // Сохранение значения
         }
 
         private void OnApplicationQuit()

@@ -318,6 +318,7 @@ MonoBehaviour:
   maxCoinsAdd: 10
   heartClip: {fileID: 8300000, guid: b6629b4e1fc3ad842aa4a1d09dcdef4c, type: 3}
   deathClip: {fileID: 8300000, guid: bfe29ad36122ace43a5d8c9c5375693c, type: 3}
+  coinsClip: {fileID: 8300000, guid: 5b93e593091068d40a7f3dbc72270e31, type: 3}
   baseattackClip: {fileID: 0}
   timeBtwAttack: 2
   attackSpeed: 2

@@ -15,17 +15,6 @@ public class Player : MonoBehaviour
     Rigidbody2D rb;
     Vector2 moveVelocity;
 
-    [SerializeField] GameObject bullet;
-    [SerializeField] Transform shootPos;
-
-    [SerializeField] Transform[] shootSuperPos;
-
-    [SerializeField] float timeBtwShoot = 2;
-    float shootTimer;
-
-    [SerializeField] float timeBtwSuperShoot = 2;
-    float shootSuperTimer;
-
     Animator anim;
     SpriteRenderer spR;
 
@@ -35,17 +24,12 @@ public class Player : MonoBehaviour
 
     [SerializeField] GameObject hitEffect;
 
-    [SerializeField] Sprite[] spritesMuzzleFlash;
-    [SerializeField] SpriteRenderer muzzleFlashSpR;
-
     [SerializeField] float dashForce, timeBtwDash, dashTime;
     float dashTimer;
     bool isDashing = false;
 
     [SerializeField] Slider healthSlider;
     [SerializeField] Slider dashSlider;
-    // Добавьте это поле в ваш класс Player
-    [SerializeField] AudioSource shootAudioSource;
     [SerializeField] ParticleSystem footParticle;
     [SerializeField] GameObject deathPanel;
     [SerializeField] GameObject dronePrefab;
@@ -53,7 +37,7 @@ public class Player : MonoBehaviour
 
     bool canBeDamaged = true;
 
-    [SerializeField] AudioClip shootClip, superShootClip, heartClip, deathClip, dashSound;
+    [SerializeField] AudioClip heartClip, deathClip, dashSound;
     [SerializeField] AudioClip[] footClips;
     AudioSource audS;
 
@@ -73,10 +57,6 @@ public class Player : MonoBehaviour
         spR = GetComponent<SpriteRenderer>();
         audS = GetComponent<AudioSource>();
 
-        // Установите AudioSource для звука shootClip
-        shootAudioSource = audS;
-
-        shootTimer = timeBtwShoot;
         dashTimer = timeBtwDash;
         maxHealth = health;
 
@@ -88,22 +68,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        shootTimer += Time.deltaTime;
-
-        if (Input.GetMouseButtonDown(0) && shootTimer >= timeBtwShoot)
-        {
-            Shoot();
-            shootTimer = 0;
-        }
-
-        shootSuperTimer += Time.deltaTime;
-
-        if (Input.GetMouseButtonDown(1) && shootSuperTimer >= timeBtwSuperShoot && PlayerPrefs.GetInt("Position1") == 1)
-        {
-            SuperShoot();
-            shootSuperTimer = 0;
-        }
-
         dashTimer += Time.deltaTime;
 
         dashSlider.value = dashTimer / timeBtwDash;
@@ -117,9 +81,9 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (timeBtwShoot - shootTimer < 0) return;
+        // if (timeBtwShoot - shootTimer < 0) return;
 
-        text.text = ((int)((timeBtwShoot - shootTimer) * 100) / 100f).ToString();
+        // text.text = ((int)((timeBtwShoot - shootTimer) * 100) / 100f).ToString();
     }
 
     private void FixedUpdate()
@@ -131,8 +95,8 @@ public class Player : MonoBehaviour
 
     void UpdateTimeBtwShoot()
     {
-        timeBtwShoot -= 0.1f;
-        timeBtwSuperShoot -= 0.5f;
+        //timeBtwShoot -= 0.1f;
+        // timeBtwSuperShoot -= 0.5f;
     }
 
     #region Base Function
@@ -198,33 +162,6 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-
-    void Shoot()
-    {
-        Instantiate(bullet, shootPos.position, shootPos.rotation);
-        SoundManager.Instance.PlayerSound(shootClip);
-        StartCoroutine(nameof(SetMuzzleFlash));
-    }
-
-    void SuperShoot()
-    {
-        for (int i = 0; i < shootSuperPos.Length; i++)
-        {
-            Instantiate(bullet, shootSuperPos[i].position, shootSuperPos[i].rotation);
-        }
-
-        SoundManager.Instance.PlayerSound(superShootClip);
-        CameraFollow.Instance.CamShake();
-        StartCoroutine(nameof(SetMuzzleFlash));
-    }
-
-    IEnumerator SetMuzzleFlash()
-    {
-        muzzleFlashSpR.enabled = true;
-        muzzleFlashSpR.sprite = spritesMuzzleFlash[Random.Range(0, spritesMuzzleFlash.Length)];
-        yield return new WaitForSeconds(0.1f);
-        muzzleFlashSpR.enabled = false;
-    }
 
     public void Damage(int damage)
     {

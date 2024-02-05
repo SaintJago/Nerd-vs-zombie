@@ -24,8 +24,10 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] int minCoinsAdd, maxCoinsAdd;
 
-    [SerializeField] AudioClip heartClip, deathClip;
+    [SerializeField] AudioClip heartClip, deathClip, coinsClip; // сыпятся монетки 
     [SerializeField] protected AudioClip baseattackClip;
+
+    private UnityEngine.Object explosion; // сыпятся монетки 
 
     public virtual void Start()
     {
@@ -38,6 +40,7 @@ public class Enemy : MonoBehaviour
 
         StartCoroutine(nameof(SetRandomPos));
         EnemyOrderInLayerManager.instance.Add(spR);
+        explosion = Resources.Load("CoinsDead"); // сыпятся монетки
     }
 
     private void OnDestroy()
@@ -126,8 +129,12 @@ public class Enemy : MonoBehaviour
     protected void Death()
     {
         isDeath = true;
+        GameObject explosionRef = (GameObject)Instantiate(explosion); // сыпятся монетки
+        explosionRef.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z); // сыпятся монетки
 
+        audioSource.PlayOneShot(coinsClip); // сыпятся монетки
         audioSource.PlayOneShot(deathClip); // Воспроизведение звука при смерти
+        
 
         Player.Instance.AddMoney(Random.Range(minCoinsAdd, maxCoinsAdd));
         if (PlayerPrefs.GetInt("Position3") == 1) Player.Instance.AddHealth(1);
