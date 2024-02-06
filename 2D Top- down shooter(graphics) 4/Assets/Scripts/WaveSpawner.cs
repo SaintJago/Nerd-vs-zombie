@@ -1,9 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.Localization.Settings;
-using MyGame;
 
 public class WaveSpawner : MonoBehaviour
 {
@@ -43,16 +41,14 @@ public class WaveSpawner : MonoBehaviour
 
     [SerializeField] AudioClip waveCompleteClip;
 
-    // Cache references
-    private Player playerInstance;
+    public GameObject CompletePanel; // Публичное поле для ссылки на CompletePanel
+    public float delayBeforeShowingPanel = 3.0f; // Задержка перед показом панели (в секундах)
 
     private void Start()
     {
         waveAudioSource = GetComponent<AudioSource>();
 
-        playerInstance = Player.Instance;
-
-        player = playerInstance.transform;
+        player = Player.Instance.transform;
 
         curtimeBtwWaves = timeBtwWaves;
 
@@ -76,8 +72,7 @@ public class WaveSpawner : MonoBehaviour
             }
             else
             {
-                // Spawn the bosses
-                StartCoroutine(SpawnBosses(waves[currentWaveIndex].bossWave));
+                StartCoroutine(ShowCompletePanelWithDelay());
             }
         }
     }
@@ -143,19 +138,9 @@ public class WaveSpawner : MonoBehaviour
         isSpawnFinished = true;
     }
 
-    IEnumerator SpawnBosses(BossWave bossWave)
+    IEnumerator ShowCompletePanelWithDelay()
     {
-        for (int i = 0; i < bossWave.count; i++)
-        {
-            if (player == null) yield break;
-
-            GameObject randomBoss = bossWave.bosses[Random.Range(0, bossWave.bosses.Length)];
-            Transform randomSpawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
-
-            Instantiate(randomBoss, randomSpawnPoint.position, Quaternion.identity);
-            Instantiate(spawnEffect, randomSpawnPoint.position, Quaternion.identity);
-
-            yield return new WaitForSeconds(currentWave.timeBtwBossSpawn);
-        }
+        yield return new WaitForSeconds(delayBeforeShowingPanel);
+        CompletePanel.SetActive(true);
     }
 }

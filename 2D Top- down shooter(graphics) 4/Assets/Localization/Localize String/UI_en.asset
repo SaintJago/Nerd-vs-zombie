@@ -136,6 +136,10 @@ MonoBehaviour:
     m_Localized: 1350
     m_Metadata:
       m_Items: []
+  - m_Id: 12015495611940864
+    m_Localized: Level complete!!
+    m_Metadata:
+      m_Items: []
   references:
     version: 1
     00000000:
