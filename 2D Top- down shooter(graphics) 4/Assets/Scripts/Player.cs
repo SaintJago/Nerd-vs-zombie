@@ -175,10 +175,11 @@ public class Player : MonoBehaviour
 
         if (health <= 0 && deathPanel.activeInHierarchy == false)
         {
-            Time.timeScale = 0;
-            SoundManager.Instance.PlayerSound(deathClip);
-            deathPanel.SetActive(true);
-            gameObject.SetActive(false);
+        // Остановка времени
+        PauseManager.PauseGame();
+        SoundManager.Instance.PlayerSound(deathClip);
+        deathPanel.SetActive(true);
+        gameObject.SetActive(false);
         }
     }
 

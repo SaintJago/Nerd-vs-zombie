@@ -60,7 +60,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnity
     {
         if (placementId == "Rewarded_Android")
         {
-            Time.timeScale = 1; // возобновляет игру
+        // Возобновить игру
+            PauseManager.ResumeGame();
             rewardedAdsButton.SetActive(false);
             deathPanel.SetActive(false);
             Player.Instance.gameObject.SetActive(true);

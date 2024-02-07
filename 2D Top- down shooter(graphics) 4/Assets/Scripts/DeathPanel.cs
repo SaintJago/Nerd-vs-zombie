@@ -24,14 +24,14 @@ public class DeathPanel : MonoBehaviour
 
     public void Restart()
     {
-        Time.timeScale = 1; // возобновляет игру
+        PauseManager.ResumeGame();
         audioSource.PlayOneShot(popSound); // Используем AudioSource для воспроизведения звука
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadMenu()
     {
-        Time.timeScale = 1f;
+        PauseManager.ResumeGame();
         audioSource.PlayOneShot(popSound); // Используем AudioSource для воспроизведения звука при загрузке меню
         SceneManager.LoadScene("Menu");
     }

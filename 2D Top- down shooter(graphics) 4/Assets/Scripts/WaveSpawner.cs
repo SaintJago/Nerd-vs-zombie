@@ -142,5 +142,7 @@ public class WaveSpawner : MonoBehaviour
     {
         yield return new WaitForSeconds(delayBeforeShowingPanel);
         CompletePanel.SetActive(true);
+        // Остановка времени
+        PauseManager.PauseGame();
     }
 }

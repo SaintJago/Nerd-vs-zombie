@@ -1,28 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class LevelCompleteScript : MonoBehaviour
 {
-  public void OnLevelComplete()
-  {
-      if (LevelSelectionMenuManager.currLevel == LevelSelectionMenuManager.unlockedLevels)
-      {
-      LevelSelectionMenuManager.unlockedLevels++;
-      PlayerPrefs.SetInt("unlockedLevels", LevelSelectionMenuManager.unlockedLevels);
-      }
-    SceneManager.LoadScene("menu");
-  }
-    // Start is called before the first frame update
-    void Start()
+    public void OnLevelComplete()
     {
-        
-    }
+        // Возобновить игру
+        PauseManager.ResumeGame();
+        // Если уровень является последним разблокированным уровнем, увеличиваем количество разблокированных уровней и сохраняем это в PlayerPrefs
+        if (LevelSelectionMenuManager.currLevel == LevelSelectionMenuManager.unlockedLevels)
+        {
+            LevelSelectionMenuManager.unlockedLevels++;
+            PlayerPrefs.SetInt("unlockedLevels", LevelSelectionMenuManager.unlockedLevels);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Загружаем сцену меню
+        SceneManager.LoadScene("menu");
     }
 }

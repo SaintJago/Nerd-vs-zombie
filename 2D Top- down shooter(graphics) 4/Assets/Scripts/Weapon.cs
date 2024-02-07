@@ -63,13 +63,13 @@ public class Weapon : MonoBehaviour
 
     void Update()
     {
+        if (!PauseManager.IsGamePaused)
+        {
         PlayerRotation();
-        ShootLogic();
-
+        ShootLogic();// Обработка ввода и действия игрока
+        }
         // dashTimer += Time.deltaTime;
-
         // dashSlider.value = dashTimer / timeBtwDash;
-
         // if (Input.GetKeyDown(KeyCode.LeftShift))
         // {
         //if (dashTimer >= timeBtwDash)
@@ -78,12 +78,9 @@ public class Weapon : MonoBehaviour
         // ActivateDash();
         //}
         // }
-
         if (timeBtwShoot - shootTimer < 0) return;
-
         text.text = ((int)((timeBtwShoot - shootTimer) * 100) / 100f).ToString();
     }
-
     void PlayerRotation()
     {
         Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
