@@ -21,8 +21,6 @@ public class Shop : MonoBehaviour
     public static Shop Instance;
     public GameObject soundButton;
     public GameObject soundMenu;
-    public static bool isPaused = false;
-    public static bool PauseGame = false;
     private bool isShopOpen;
 
     [SerializeField] Player player;
@@ -75,9 +73,8 @@ public class Shop : MonoBehaviour
     public void OpenSoundMenu()
     {
         soundMenu.SetActive(true);
-        Time.timeScale = 0f;
-        PauseGame = true;
-        isPaused = true;
+        // Остановка времени
+        PauseManager.PauseGame();
     }
 
     // Открыть магазин
@@ -86,7 +83,8 @@ public class Shop : MonoBehaviour
         shopPanel.SetActive(true);
         Check();
         SoundManager.Instance.PlayerSound(popSound);
-        Time.timeScale = 0;
+        // Остановка времени
+        PauseManager.PauseGame();
         Cursor.visible = true;
 
         if (isShopOpen)
@@ -107,9 +105,8 @@ public class Shop : MonoBehaviour
     {
         shopPanel.SetActive(false);
         soundMenu.SetActive(false);
-        Time.timeScale = 1f;
-        PauseGame = false;
-        isPaused = false;
+        // Возобновить игру
+        PauseManager.ResumeGame();
         isShopOpen = false; // Сбрасываем флаг открытости магазина
     }
 
@@ -117,7 +114,8 @@ public class Shop : MonoBehaviour
     public void LoadMenu()
     {
         StopAllCoroutines();
-        Time.timeScale = 1f;
+        // Возобновить игру
+        PauseManager.ResumeGame();
         SceneManager.LoadScene("Menu");
     }
 
@@ -139,7 +137,7 @@ public class Shop : MonoBehaviour
     // Обработчик переключения панели магазина
     void HandleShopPanelToggle()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetButtonDown("Cancel"))
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isShopOpen)
             {

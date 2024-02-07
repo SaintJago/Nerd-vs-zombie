@@ -137,7 +137,11 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 12015495611940864
-    m_Localized: Level complete!!
+    m_Localized: Level complete
+    m_Metadata:
+      m_Items: []
+  - m_Id: 12357527895277568
+    m_Localized: You win!!!
     m_Metadata:
       m_Items: []
   references:

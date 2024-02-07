@@ -135,6 +135,10 @@ MonoBehaviour:
     m_Key: level_complete
     m_Metadata:
       m_Items: []
+  - m_Id: 12357527895277568
+    m_Key: win!
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
