@@ -2538,7 +2538,7 @@ MonoBehaviour:
   waves:
   - enemies:
     - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
-    enemyCount: 3
+    enemyCount: 10
     timeBtwSpawn: 1
     timeBtwBossSpawn: 1
     bossWave:
@@ -2547,7 +2547,71 @@ MonoBehaviour:
       count: 1
   - enemies:
     - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
-    enemyCount: 3
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
+    timeBtwSpawn: 1
+    timeBtwBossSpawn: 0
+    bossWave:
+      bosses: []
+      count: 0
+  - enemies:
+    - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
+    enemyCount: 10
     timeBtwSpawn: 1
     timeBtwBossSpawn: 0
     bossWave:
@@ -23848,7 +23912,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1146234495
 RectTransform:
   m_ObjectHideFlags: 0
