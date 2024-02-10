@@ -2543,7 +2543,7 @@ MonoBehaviour:
     timeBtwBossSpawn: 1
     bossWave:
       bosses:
-      - {fileID: 2106696704256776926, guid: f6d49b172f72d2047839ca7b43d79d0b, type: 3}
+      - {fileID: 9104208383588122869, guid: e8ff44e3899eb8947b6fd5c76b801c8c, type: 3}
       count: 1
   - enemies:
     - {fileID: 141417257370439316, guid: 02ab20267cf8ff8439a8b84061f4c146, type: 3}
