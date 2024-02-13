@@ -6,29 +6,15 @@ using UnityEngine.Advertisements;
 public class AdsManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityAdsLoadListener, IUnityAdsShowListener
 {
     [SerializeField] GameObject rewardedAdsButton, deathPanel;
-    [SerializeField] float timeBtwAd;
-    float timerBtwAd;
 
     [SerializeField] AudioClip popSound;
     private AudioSource audioSource; // Добавляем компонент AudioSource
 
     void Start()
     {
-        Advertisement.Initialize("5175129", false, this);
+        Advertisement.Initialize("5552395", false, this);
         audioSource = GetComponent<AudioSource>(); // Получаем компонент AudioSource
     }
-
-    void Update()
-    {
-        timerBtwAd += Time.deltaTime;
-
-        if (timerBtwAd >= timeBtwAd)
-        {
-            Advertisement.Show("Interstitial_Android", this);
-            timerBtwAd = 0;
-        }
-    }
-
     public void ShowAd()
     {
         Advertisement.Show("Rewarded_Android", this);
