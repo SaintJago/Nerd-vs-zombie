@@ -3,9 +3,9 @@ using UnityEngine.UI;
 
 public class ButtonMenu : MonoBehaviour
 {
-    public GameObject[] hiddenButtons;
+    //public GameObject[] hiddenButtons;
 
-    private int currentlyVisibleButtonIndex = -1;
+    //private int currentlyVisibleButtonIndex = -1;
 
     public AudioSource myFx;
     public AudioClip hoverFx;
@@ -21,9 +21,9 @@ public class ButtonMenu : MonoBehaviour
         myFx.PlayOneShot(clickFx);
     }
 
-    private void Start()
+    /*private void Start()
     {
-        // Проходим по всем дочерним объектам
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform child = transform.GetChild(i);
@@ -31,16 +31,16 @@ public class ButtonMenu : MonoBehaviour
 
             if (visibleButton != null)
             {
-                // Вешаем обработчик нажатия  
+                // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  
                 visibleButton.onClick.AddListener(() => {
                     OnVisibleButtonPointerDown(child.GetSiblingIndex());
                 });
             }
         }
-    }
+    }*/
 
 
-    public void OnVisibleButtonPointerDown(int buttonIndex)
+    /*public void OnVisibleButtonPointerDown(int buttonIndex)
     {
         if (currentlyVisibleButtonIndex != -1 && currentlyVisibleButtonIndex != buttonIndex)
         {
@@ -57,7 +57,7 @@ public class ButtonMenu : MonoBehaviour
             hiddenButtons[buttonIndex].SetActive(true);
             currentlyVisibleButtonIndex = buttonIndex;
         }
-    }
+    }*/
 
     
 }
