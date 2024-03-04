@@ -293,10 +293,10 @@ TextureImporter:
       name: bort01_2
       rect:
         serializedVersion: 2
-        x: 4701
+        x: 4705
         y: 1914
-        width: 968
-        height: 919
+        width: 964
+        height: 918
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
