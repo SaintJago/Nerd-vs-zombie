@@ -1,5 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
+using BayatGames.SaveGameFree;
+
 
 public class SoundMenu : MonoBehaviour
 {
@@ -26,7 +28,7 @@ public class SoundMenu : MonoBehaviour
     private void Start()
     {
         // При запуске меню устанавливаем значение слайдера в сохраненное значение громкости
-        volumeSlider.value = PlayerPrefs.GetFloat(volumeKey, 1.0f);
+        volumeSlider.value = SaveGame.Load<float>(volumeKey, 1.0f);
     }
 
     // Метод вызывается при изменении положения слайдера
@@ -36,7 +38,6 @@ public class SoundMenu : MonoBehaviour
         AudioListener.volume = volume;
 
         // Сохраняем значение громкости в PlayerPrefs
-        PlayerPrefs.SetFloat(volumeKey, volume);
-        PlayerPrefs.Save();
+        SaveGame.Save<float>(volumeKey, volume);
     }
 }

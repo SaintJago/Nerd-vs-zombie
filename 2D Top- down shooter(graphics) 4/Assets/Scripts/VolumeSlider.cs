@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 using MyGame;
+using BayatGames.SaveGameFree;
+
 
 public class VolumeSlider : MonoBehaviour
 {
@@ -10,7 +12,7 @@ public class VolumeSlider : MonoBehaviour
     private void Awake()
     {
         slider = GetComponent<Slider>();
-        slider.value = PlayerPrefs.GetFloat(volumeName, 0.75f);
+        slider.value = SaveGame.Load<float>(volumeName, 0.75f);
         slider.onValueChanged.AddListener(SetVolume);
     }
 

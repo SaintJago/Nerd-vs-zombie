@@ -2,6 +2,8 @@
 using UnityEngine.UI;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
+using BayatGames.SaveGameFree;
+
 
 namespace MyGame
 {
@@ -35,9 +37,9 @@ namespace MyGame
             }
             audS = GetComponent<AudioSource>();
             // Загрузка сохраненных значений при запуске
-            musicSlider.value = PlayerPrefs.GetFloat(MIXER_MUSIC, 0.75f);
-            sfxSlider.value = PlayerPrefs.GetFloat(MIXER_SFX, 0.75f);
-            shotSlider.value = PlayerPrefs.GetFloat(MIXER_SHOT, 0.75f);
+            musicSlider.value = SaveGame.Load<float>(MIXER_MUSIC, 0.75f);
+            sfxSlider.value = SaveGame.Load<float>(MIXER_SFX, 0.75f);
+            shotSlider.value = SaveGame.Load<float>(MIXER_SHOT, 0.75f);
 
             musicSlider.onValueChanged.AddListener(SetMusicVolume);
             sfxSlider.onValueChanged.AddListener(SetSFXVolume);
@@ -71,30 +73,30 @@ namespace MyGame
         public void SetVolume(string name, float value)
         {
             mixer.SetFloat(name, Mathf.Log10(value) * 20);
-            PlayerPrefs.SetFloat(name, value);
+            SaveGame.Save<float>(name, value);
         }
 
         void SetMusicVolume(float value)
         {
             mixer.SetFloat(MIXER_MUSIC, Mathf.Log10(value) * 20);
-            PlayerPrefs.SetFloat(MIXER_MUSIC, value); // Сохранение значения
+            SaveGame.Save<float>(MIXER_MUSIC, value); // Сохранение значения
         }
 
         void SetSFXVolume(float value)
         {
             mixer.SetFloat(MIXER_SFX, Mathf.Log10(value) * 20);
-            PlayerPrefs.SetFloat(MIXER_SFX, value); // Сохранение значения
+            SaveGame.Save<float>(MIXER_SFX, value); // Сохранение значения
         }
 
         void SetShotVolume(float value)
         {
             mixer.SetFloat(MIXER_SHOT, Mathf.Log10(value) * 20);
-            PlayerPrefs.SetFloat(MIXER_SHOT, value); // Сохранение значения
+            SaveGame.Save<float>(MIXER_SHOT, value); // Сохранение значения
         }
 
-        private void OnApplicationQuit()
-        {
-            PlayerPrefs.Save(); // Сохранение всех изменений при выходе из игры
-        }
+        //private void OnApplicationQuit()
+        //{
+        //    PlayerPrefs.Save(); // Сохранение всех изменений при выходе из игры
+        //}
     }
 }
