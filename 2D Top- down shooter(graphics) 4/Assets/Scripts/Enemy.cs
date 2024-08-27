@@ -131,6 +131,7 @@ public class Enemy : MonoBehaviour
         isDeath = true;
         GameObject explosionRef = (GameObject)Instantiate(explosion); // сыпятся монетки
         explosionRef.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z); // сыпятся монетки
+        Destroy(explosionRef, explosionRef.GetComponent<ParticleSystem>().main.duration);// Удаление системы частиц после завершения ее проигрывания
 
         audioSource.PlayOneShot(coinsClip); // сыпятся монетки
         audioSource.PlayOneShot(deathClip); // Воспроизведение звука при смерти
