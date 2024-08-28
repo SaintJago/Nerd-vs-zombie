@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using BayatGames.SaveGameFree;
 
 public class LevelCompleteScript : MonoBehaviour
 {
@@ -11,7 +12,7 @@ public class LevelCompleteScript : MonoBehaviour
         if (LevelSelectionMenuManager.currLevel == LevelSelectionMenuManager.unlockedLevels)
         {
             LevelSelectionMenuManager.unlockedLevels++;
-            PlayerPrefs.SetInt("unlockedLevels", LevelSelectionMenuManager.unlockedLevels);
+            SaveGame.Save<int>("unlockedLevels", LevelSelectionMenuManager.unlockedLevels);
         }
 
         // Загружаем сцену меню
