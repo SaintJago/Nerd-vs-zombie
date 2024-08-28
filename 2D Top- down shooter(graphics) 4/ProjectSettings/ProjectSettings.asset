@@ -159,7 +159,9 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
+    Android: com.FunnyRealityGames.NerdvsZombie
     Standalone: com.Funny-Reality-Games.Nerd-vs-Zombie
+    iPhone: com.Funny-Reality-Games.Nerd-vs-Zombie
   buildNumber:
     Standalone: 0
     iPhone: 0
@@ -678,7 +680,7 @@ PlayerSettings:
     m_VersionCode: 1
     m_VersionName: 
   apiCompatibilityLevel: 6
-  activeInputHandler: 0
+  activeInputHandler: 1
   windowsGamepadBackendHint: 0
   cloudProjectId: d4ade994-922f-4a59-baab-540dda23a6bd
   framebufferDepthMemorylessMode: 0
