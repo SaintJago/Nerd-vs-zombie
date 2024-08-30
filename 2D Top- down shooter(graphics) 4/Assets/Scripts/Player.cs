@@ -3,6 +3,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Localization.Settings;
 using MyGame;
+using UnityEngine.InputSystem;
+
 
 public class Player : MonoBehaviour
 {
