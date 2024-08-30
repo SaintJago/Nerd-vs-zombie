@@ -39,11 +39,11 @@ public class Weapon : MonoBehaviour
 
     AudioSource audS;
 
-    // private void Awake()
-    // {
-    //Instance = this;
-    // Shop.Instance.buySeconPosition += UpdateTimeBtwShoot;
-    //  }
+    private void Awake()
+      {
+          Instance = this;
+          Shop.Instance.buySeconPosition += UpdateTimeBtwShoot;
+      }
 
     void Start()
     {
@@ -78,8 +78,8 @@ public class Weapon : MonoBehaviour
         // ActivateDash();
         //}
         // }
-        if (timeBtwShoot - shootTimer < 0) return;
-        text.text = ((int)((timeBtwShoot - shootTimer) * 100) / 100f).ToString();
+        //if (timeBtwShoot - shootTimer < 0) return;
+        //text.text = ((int)((timeBtwShoot - shootTimer) * 100) / 100f).ToString();
     }
     void PlayerRotation()
     {

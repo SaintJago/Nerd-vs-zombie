@@ -40,11 +40,13 @@ public class Player : MonoBehaviour
     AudioSource audS;
 
     Vector2 moveInput;
+    [HideInInspector] public int currentMoney;
+    [SerializeField] TextMeshProUGUI coinsText;
 
     private void Awake()
     {
         Instance = this;
-        Shop.Instance.buySeconPosition += UpdateTimeBtwShoot;
+        //Shop.Instance.buySeconPosition += UpdateTimeBtwShoot;
     }
 
     // Запускается в старте
@@ -91,11 +93,11 @@ public class Player : MonoBehaviour
         if (isDashing) Dash();
     }
 
-    void UpdateTimeBtwShoot()
-    {
+    //void UpdateTimeBtwShoot()
+    //{
         //timeBtwShoot -= 0.1f;
         // timeBtwSuperShoot -= 0.5f;
-    }
+    //}
 
     #region Base Function
 
@@ -194,9 +196,6 @@ public class Player : MonoBehaviour
     {
         healthSlider.value = (float)health / maxHealth;
     }
-
-    [HideInInspector] public int currentMoney;
-    [SerializeField] TextMeshProUGUI coinsText;
 
     public void AddMoney(int value)
     {
