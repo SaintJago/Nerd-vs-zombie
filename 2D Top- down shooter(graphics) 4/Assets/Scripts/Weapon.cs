@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 using MyGame;
 
-public class Weapon : MonoBehaviour
+public class Weapon : BaseAttacker
 {
-    [SerializeField] float rotationSpeed;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private float fireRate = 0.5f;
+    [SerializeField] private float attackRange = 10f;
+    [SerializeField] private float bulletCooldown = 0.1f;
 
-    [SerializeField] GameObject bullet;
     [SerializeField] Transform shootPos;
     [SerializeField] Transform[] shootSuperPos;
-
     [SerializeField] TextMeshProUGUI text;
 
     Animator anim;
@@ -21,116 +21,106 @@ public class Weapon : MonoBehaviour
 
     public static Weapon Instance;
 
-    [SerializeField] float timeBtwShoot = 2;
-    float shootTimer;
-
-    [SerializeField] float timeBtwSuperShoot = 2;
-    float shootSuperTimer;
-
-    //[SerializeField] GameObject dronePrefab;
-    // public GameObject droneInstance { get; private set; }
-
     [SerializeField] AudioSource shootAudioSource;
     [SerializeField] SpriteRenderer muzzleFlashSpR;
     [SerializeField] Sprite[] spritesMuzzleFlash;
-
     [SerializeField] AudioClip[] shootClip, superShootClip;
-
 
     AudioSource audS;
 
+    private float nextFireTime = 0f;
+
+    public override float FireRate => fireRate;
+    public override float AttackRange => attackRange;
+    public override float BulletCooldown => bulletCooldown;
+    public override GameObject BulletPrefab => bulletPrefab;
+
     private void Awake()
-      {
-          Instance = this;
-          Shop.Instance.buySeconPosition += UpdateTimeBtwShoot;
-      }
+    {
+        Instance = this;
+        Shop.Instance.buySeconPosition += UpdateFireRate;
+    }
 
     void Start()
     {
-        // rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         spR = GetComponent<SpriteRenderer>();
         audS = GetComponent<AudioSource>();
         shootAudioSource = GetComponent<AudioSource>();
-
-        // dashTimer = timeBtwDash;
-        // maxHealth = health;
-
-        // UpdateHealthUI();
-        // droneInstance = Instantiate(dronePrefab, transform.position, Quaternion.identity);
-        // droneInstance.SetActive(false);
     }
 
-    void Update()
+    protected override void Update()
     {
-        if (!PauseManager.IsGamePaused)
+        if (Time.time >= nextFireTime)
         {
-        PlayerRotation();
-        ShootLogic();// Обработка ввода и действия игрока
+            if (CanAttack())
+            {
+                Attack();
+                nextFireTime = Time.time + 1f / FireRate;
+            }
         }
-        // dashTimer += Time.deltaTime;
-        // dashSlider.value = dashTimer / timeBtwDash;
-        // if (Input.GetKeyDown(KeyCode.LeftShift))
-        // {
-        //if (dashTimer >= timeBtwDash)
-        //{
-        // dashTimer = 0;
-        // ActivateDash();
-        //}
-        // }
-        //if (timeBtwShoot - shootTimer < 0) return;
-        //text.text = ((int)((timeBtwShoot - shootTimer) * 100) / 100f).ToString();
-    }
-    void PlayerRotation()
-    {
-        Vector2 dir = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
-
-        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, rotationSpeed * Time.deltaTime);
     }
 
-    void UpdateTimeBtwShoot()
+    void UpdateFireRate()
     {
-        timeBtwShoot -= 0.1f;
-        timeBtwSuperShoot -= 0.5f;
+        fireRate += 0.1f;
     }
 
-    void ShootLogic()
+    protected override bool CanAttack()
     {
-        shootTimer += Time.deltaTime;
+        return FindNearestEnemy() != null;
+    }
 
-        if (Input.GetMouseButtonDown(0) && shootTimer >= timeBtwShoot)
+    public override void Attack()
+    {
+        GameObject nearestEnemy = FindNearestEnemy();
+        if (nearestEnemy != null)
         {
+            Vector3 direction = (nearestEnemy.transform.position - transform.position).normalized;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+
             Shoot();
-            shootTimer = 0;
+            if (PlayerPrefs.GetInt("Position1") == 1)
+            {
+                SuperShoot();
+            }
         }
+    }
 
-        shootSuperTimer += Time.deltaTime;
+    GameObject FindNearestEnemy()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject nearest = null;
+        float minDistance = float.MaxValue;
 
-        if (Input.GetMouseButtonDown(1) && shootSuperTimer >= timeBtwSuperShoot && PlayerPrefs.GetInt("Position1") == 1)
+        foreach (GameObject enemy in enemies)
         {
-            SuperShoot();
-            shootSuperTimer = 0;
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance < minDistance && distance <= AttackRange)
+            {
+                minDistance = distance;
+                nearest = enemy;
+            }
         }
+
+        return nearest;
     }
 
     void Shoot()
     {
-        // Добавьте здесь логику стрельбы, например:
         audS.clip = shootClip[Random.Range(0, shootClip.Length)];
         audS.Play();
-        Instantiate(bullet, shootPos.position, shootPos.rotation);
+        Instantiate(bulletPrefab, shootPos.position, shootPos.rotation);
         shootAudioSource.Play();
         StartCoroutine(nameof(SetMuzzleFlash));
     }
 
     void SuperShoot()
     {
-        // Добавьте здесь логику супер стрельбы, например:
         for (int i = 0; i < shootSuperPos.Length; i++)
         {
-            Instantiate(bullet, shootSuperPos[i].position, shootSuperPos[i].rotation);
+            Instantiate(bulletPrefab, shootSuperPos[i].position, shootSuperPos[i].rotation);
         }
         SoundManager.Instance.PlayerSound(shootAudioSource.clip);
         CameraFollow.Instance.CamShake();
@@ -139,7 +129,6 @@ public class Weapon : MonoBehaviour
 
     IEnumerator SetMuzzleFlash()
     {
-        // Добавьте здесь логику отображения музыльной вспышки, например:
         muzzleFlashSpR.enabled = true;
         muzzleFlashSpR.sprite = spritesMuzzleFlash[Random.Range(0, spritesMuzzleFlash.Length)];
         yield return new WaitForSeconds(0.1f);

@@ -3766,16 +3766,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c7b892cea70b74ca5a8158a18f2127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotationSpeed: 5
-  bullet: {fileID: 4823449216251446775, guid: b32978c2ef7feba4f91eb7ff5f9b9519, type: 3}
+  bulletPrefab: {fileID: 4823449216251446775, guid: b32978c2ef7feba4f91eb7ff5f9b9519, type: 3}
+  fireRate: 1
+  attackRange: 10
+  bulletCooldown: 0.1
   shootPos: {fileID: 1447327922}
   shootSuperPos:
   - {fileID: 1073275444}
   - {fileID: 606941324}
   - {fileID: 2121580323}
   text: {fileID: 940486073}
-  timeBtwShoot: 0.2
-  timeBtwSuperShoot: 2
   shootAudioSource: {fileID: 266759341}
   muzzleFlashSpR: {fileID: 1293715415}
   spritesMuzzleFlash:
@@ -37170,7 +37170,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 39.83}
   m_AnchorMin: {x: 0.3157914, y: 0.206}
   m_AnchorMax: {x: 0.3157914, y: 0.2252582}
-  m_AnchoredPosition: {x: 1.1699829, y: -14.789978}
+  m_AnchoredPosition: {x: 1.1699829, y: -14.789986}
   m_SizeDelta: {x: 11.06, y: 0.73}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!114 &1618945187
