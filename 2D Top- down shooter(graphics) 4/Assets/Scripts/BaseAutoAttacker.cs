@@ -8,7 +8,7 @@ public abstract class BaseAttacker : MonoBehaviour, IAttacker
     public abstract GameObject BulletPrefab { get; }
     public Transform Transform => transform;
 
-    private float nextFireTime = 0f;
+    protected float nextFireTime = 0f;
     private bool canShoot = true;
 
     protected virtual void Update()

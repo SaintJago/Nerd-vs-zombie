@@ -28,7 +28,7 @@ public class Weapon : BaseAttacker
 
     AudioSource audS;
 
-    private float nextFireTime = 0f;
+    //private float nextFireTime = 0f;
 
     public override float FireRate => fireRate;
     public override float AttackRange => attackRange;
